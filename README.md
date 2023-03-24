@@ -1,4 +1,4 @@
-(https://github.com/mauricom97/qrcodebar/blob/main/qr-code.png?raw=true) width="400" height="200"
+![](https://github.com/mauricom97/qrcodebar/blob/main/qr-code.png?raw=true)
 # QRCODEBAR
 
 Este projeto tem como objetivo facilitar o atendimento em bares , restaurantes e melhorar a experiência dos clientes nesses estabelecimentos, onde o usuário pode utilizar seu próprio aparelho celular para acessar o cardápio e realizar pedidos. 
