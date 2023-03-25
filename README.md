@@ -15,7 +15,7 @@ Já o responsável pelo estabelecimento pode ter um melhor controle de atendimen
   - A proposta do QRCODEBAR é de melhorar a experiência dos clientes nos estabelecimentos e tirar a tensão na parte de atendimento e gerenciamento de pedidos, onde o cliente com seu próprio celular pode ter acesso a somente os itens que se encontram realmente disponíveis no estabelecimento.
   - Do lado do estabelecimento, o QRCODEBAR tem como objetivo facilitar o controle de pedidos, controle de estoque e atendimento. 
 
-- **Diagramas**
+- **Sobre os diagramas**
 
   - Casos de uso:
 
