@@ -19,4 +19,4 @@ Já o responsável pelo estabelecimento pode ter um melhor controle de atendimen
 
   - Casos de uso:
 
-  ![](https://github.com/mauricom97/qrcodebar/blob/main/casosdeuso.jpg?raw=true)
+  ![](https://github.com/mauricom97/qrcodebar/blob/main/casosdeuso.JPG?raw=true)
