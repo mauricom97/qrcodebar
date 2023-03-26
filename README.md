@@ -38,3 +38,8 @@ Já o responsável pelo estabelecimento pode ter um melhor controle de atendimen
   - Como cliente, quero poder avaliar a minha experiência no bar através do meu celular, para que possa dar feedback sobre o atendimento, a qualidade da comida e outras questões importantes.
   - Como proprietário do bar, quero poder monitorar os pedidos feitos pelos clientes em tempo real, para que possa gerenciar a produção de alimentos e bebidas de acordo com a demanda.
   - Como proprietário do bar, quero poder gerar relatórios de vendas e análises de dados a partir dos pedidos feitos pelos clientes, para que possa tomar decisões informadas sobre o menu, a gestão de estoque e outras questões relacionadas ao negócio.
+
+- **Feature Driven Development**
+
+https://trello.com/invite/b/FRIxrShm/ATTIc32265e2d9398fe36f0906d1f6bcdb46C3063B6D/kanban-quadro-modelo
+
