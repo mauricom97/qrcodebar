@@ -26,6 +26,10 @@ Já o responsável pelo estabelecimento pode ter um melhor controle de atendimen
 
     ![](https://github.com/mauricom97/qrcodebar/blob/main/diagramaclasse.JPG?raw=true)
 
+  - Diagrama de sequencia:
+
+    ![](https://github.com/mauricom97/qrcodebar/blob/main/diagramaSequencia.JPG?raw=true)
+
 - **Sobre as historias de usuário:**
 
   - Como cliente, quero poder acessar o cardápio completo do bar através do meu celular, para poder ver todas as opções disponíveis antes de fazer meu pedido.
