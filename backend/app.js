@@ -3,7 +3,7 @@ const port = process.env.PORT || 3000
 const app = express()
 require('dotenv').config()
 
-require('./routes/index')(app)
+require('../routes/index')(app)
 
 
 app.listen(port, () => {
