@@ -29,12 +29,8 @@ Já o responsável pelo estabelecimento pode ter um melhor controle de atendimen
 - **Sobre as historias de usuário:**
 
   - Como cliente, quero poder acessar o cardápio completo do bar através do meu celular, para poder ver todas as opções disponíveis antes de fazer meu pedido.
-  - Como cliente, quero poder selecionar itens do cardápio e adicioná-los ao meu carrinho de compras através do meu celular, para que possa fazer meu pedido sem precisar chamar um garçom.
+  - Como cliente, quero poder selecionar itens do cardápio e adicioná-los ao pedido através do meu celular, para que possa fazer meu pedido sem precisar chamar um garçom.
   - Como cliente, quero poder adicionar notas especiais ao meu pedido, como solicitar um item sem cebola ou com mais molho, para que o meu pedido seja preparado de acordo com minhas preferências.
-  - Como cliente, quero poder visualizar o meu carrinho de compras em tempo real e fazer alterações ou remover itens, para que possa ajustar o meu pedido antes de confirmá-lo.
-  - Como cliente, quero poder confirmar o meu pedido através do meu celular e receber uma confirmação imediata, para que possa ter certeza de que meu pedido foi recebido e está sendo preparado.
-  - Como cliente, quero receber notificações em tempo real sobre o status do meu pedido, como quando ele foi recebido, quando está sendo preparado e quando está pronto para retirada.
-  - Como cliente, quero poder pagar pelo meu pedido através do meu celular, usando um cartão de crédito ou uma carteira digital, para que possa fazer um pagamento rápido e seguro.
   - Como cliente, quero poder avaliar a minha experiência no bar através do meu celular, para que possa dar feedback sobre o atendimento, a qualidade da comida e outras questões importantes.
   - Como proprietário do bar, quero poder monitorar os pedidos feitos pelos clientes em tempo real, para que possa gerenciar a produção de alimentos e bebidas de acordo com a demanda.
   - Como proprietário do bar, quero poder gerar relatórios de vendas e análises de dados a partir dos pedidos feitos pelos clientes, para que possa tomar decisões informadas sobre o menu, a gestão de estoque e outras questões relacionadas ao negócio.
