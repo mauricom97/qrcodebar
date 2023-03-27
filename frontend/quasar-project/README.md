@@ -1,4 +1,4 @@
-# qrcodebar (v.1.0.0)
+# qrcodebar (v1.0.0)
 
 A Quasar Project
 
