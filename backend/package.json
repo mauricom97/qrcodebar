@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "npm install -g typescript nodemon",
     "start": "nodemon -e ts --exec ts-node ./src/server.ts"
   },
   "author": "",
@@ -33,6 +34,7 @@
     "sequelize": "^6.31.0",
     "sequelize-typescript": "^2.1.5",
     "typescript": "^5.0.3",
+    "nodemon": "^2.0.14",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
