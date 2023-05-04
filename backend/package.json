@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "npm install --save typescript nodemon",
     "build": "tsc && babel src -d dist",
-    "start": "nodemon -e ts --exec ts-node ./src/server.ts",
-    "startprod": "node ./build/server.ts"
+    "startdev": "nodemon -e ts --exec ts-node ./src/server.ts",
+    "start": "node ./build/server.js"
   },
   "author": "",
   "license": "ISC",
