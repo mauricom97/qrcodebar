@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prebuild": "npm install --save typescript",
-    "build": "tsc",
-    "start": "node -e ts --exec ts-node ./src/server.ts"
+    "prebuild": "npm install --save typescript nodemon",
+    "build": "tsc && babel src -d dist",
+    "start": "nodemon -e ts --exec ts-node ./src/server.ts",
+    "startprod": "node ./build/server.ts"
   },
   "author": "",
   "license": "ISC",
