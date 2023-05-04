@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prebuild": "npm install --save typescript nodemon",
-    "build": "tsc && babel src -d dist",
+    "prebuild": "npm install --save typescript",
+    "build": "tsc",
     "startdev": "nodemon -e ts --exec ts-node ./src/server.ts",
     "start": "node ./build/server.js"
   },
