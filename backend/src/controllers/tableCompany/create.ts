@@ -43,7 +43,7 @@ async function createTableCompany(req: any, request: { num: number, description:
 async function createQrCode(req: any, tableCompany: { uuid: string }): Promise<string> {
     try {
         const token = generateToken({dbname: req.company.schemaName, company_uuid: req.company.uuid, table_uuid: tableCompany.uuid })
-        const url = `http://10.199.11.41:8080?token=${token}`
+        const url = `${process.env.FRONTEND_URL}?token=${token}`
         const qrCodeUrl = await qr.toDataURL(url)
         await QrCode.schema(req.company.schemaName).create({ uuid_company_table: tableCompany.uuid, image: qrCodeUrl })
         return qrCodeUrl   
