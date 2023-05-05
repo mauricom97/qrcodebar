@@ -26,7 +26,7 @@
         </q-list>
       </q-card-section>
     </q-card>
-    <q-btn color="primary" class="fixed-bottom full-width" label="Confirmar pedido" />
+    <q-btn color="primary" size="xl" class="fixed-bottom full-width" label="Confirmar pedido" />
   </div>
 </template>
 
