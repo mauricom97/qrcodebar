@@ -43,7 +43,15 @@ export default {
   },
 
   computed() {
-    axios
+    this.getMenu();
+  },
+
+  methods: {
+    updateQuantity(uuid, quantity) {
+      this.$set(this.quantities, uuid, quantity);
+    },
+    getMenu(){
+      axios
       .get(
         `https://app-backend-qrcodebar.onrender.com/item/menu?token=${this.$route.query.token}}`
       )
@@ -53,11 +61,6 @@ export default {
       .catch((error) => {
         console.error(error);
       });
-  },
-
-  methods: {
-    updateQuantity(uuid, quantity) {
-      this.$set(this.quantities, uuid, quantity);
     }
   }
 };
