@@ -41,9 +41,10 @@ export default {
       quantities: {}
     };
   },
-
-  async created() {
-    await this.getMenu();
+  created() {
+    setTimeout(() => {
+      this.getMenu();
+    }, 1000)
   },
 
   methods: {
