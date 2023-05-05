@@ -42,16 +42,16 @@ export default {
     };
   },
 
-  computed() {
-    this.getMenu();
+  async created() {
+    await this.getMenu();
   },
 
   methods: {
     updateQuantity(uuid, quantity) {
       this.$set(this.quantities, uuid, quantity);
     },
-    getMenu(){
-      axios
+    async getMenu(){
+      await axios
       .get(
         `https://app-backend-qrcodebar.onrender.com/item/menu?token=${this.$route.query.token}}`
       )
