@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md">
-    <q-card>
+    <q-card flat bordered>
       <q-card-section>
         <h1 class="text-h4">Menu do Café</h1>
       </q-card-section>
@@ -26,6 +26,7 @@
         </q-list>
       </q-card-section>
     </q-card>
+    <q-btn color="primary" class="fixed-bottom full-width" label="Confirmar pedido" />
   </div>
 </template>
 
@@ -57,6 +58,7 @@ export default {
         `https://app-backend-qrcodebar.onrender.com/item/menu?token=${this.$route.query.token}`
       )
       .then((response) => {
+        
         this.menu = response.data;
       })
       .catch((error) => {
