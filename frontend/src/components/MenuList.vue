@@ -45,7 +45,7 @@ export default {
   created() {
     axios
       .get(
-        `https://app-backend-qrcodebar.onrender.com/item/menu?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hdXJpY2lvX251bmVzIiwiY29sbGFib3JhdG9yX3V1aWQiOiIwZDkzMDVlOC1kZGVlLTQwNTEtODUwNC05NWFmMTAzNmM3NDQiLCJjb21wYW55X3V1aWQiOiI0NGNhYmY5ZS00ZDk4LTQ0YWItYTkzMS1kZjFiZGE3MjVlZTEiLCJpYXQiOjE2ODI0NjQ2MjUsImV4cCI6MTY4MjQ2ODIyNX0.LF80IkzU-ozg--ydDKnZDeRYx2PYv7Rdad4h_-z1uJc`
+        `https://app-backend-qrcodebar.onrender.com/item/menu?token=${this.$route.query.token}}`
       )
       .then((response) => {
         this.menu = response.data;
