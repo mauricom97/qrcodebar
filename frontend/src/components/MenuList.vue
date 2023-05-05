@@ -41,10 +41,10 @@ export default {
       quantities: {}
     };
   },
-  created() {
+  async created() {
     setTimeout(() => {
       this.getMenu();
-    }, 1000)
+    }, 1000);
   },
 
   methods: {
@@ -54,7 +54,7 @@ export default {
     async getMenu(){
       await axios
       .get(
-        `https://app-backend-qrcodebar.onrender.com/item/menu?token=${this.$route.query.token}}`
+        `https://app-backend-qrcodebar.onrender.com/item/menu?token=${this.$route.query.token}`
       )
       .then((response) => {
         this.menu = response.data;
