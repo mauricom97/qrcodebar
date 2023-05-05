@@ -42,7 +42,7 @@ export default {
     };
   },
 
-  created() {
+  computed() {
     axios
       .get(
         `https://app-backend-qrcodebar.onrender.com/item/menu?token=${this.$route.query.token}}`
