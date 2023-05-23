@@ -1,6 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import { sequelize } from "../config/database"
 import { v4 as uuidv4 } from 'uuid';
+import Category from './Category';
 
 class Item extends Model {
     public uuid!: string
@@ -13,7 +14,8 @@ class Item extends Model {
 
 Item.init({
     uuid: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID, // <- Altere para UUID
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
     name: {
@@ -29,15 +31,17 @@ Item.init({
         type: DataTypes.BOOLEAN
     },
     category: {
-        type: DataTypes.STRING
+        type: DataTypes.UUID, // <- Altere para UUID
     }
 }, {
     sequelize,
     modelName: 'Item',
     tableName: "itens",
-    timestamps: false,
-    schema: 'public'
+    timestamps: false
 })
+
+
+Item.belongsTo(Category, { foreignKey: 'category' });
 Item.beforeCreate((model, options) => {
     model.uuid = uuidv4();
 });
