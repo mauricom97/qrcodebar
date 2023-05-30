@@ -1,14 +1,18 @@
 import Item from '../../db/models/Item';
 import Category from '../../db/models/Category';
+import Bills from '../../db/models/Bills';
 import { Request, Response } from 'express';
 import { sequelize } from "../../db/config/database"
+import jwt from 'jsonwebtoken'
+
 
 
 export const menu = async (req: Request, res: Response) => {
     try {
-        const schemaName = extractData(req)
+        const { schemaName, dataTable } = extractData(req)
         const menu = await getMenu(schemaName)
-        return res.send(menu)      
+        const bills = await getBills(schemaName, dataTable)
+        return res.send({menu, bills})
     } catch (error) {
         console.log(error)
         return res.send(error)
@@ -16,7 +20,10 @@ export const menu = async (req: Request, res: Response) => {
 }
 
 function extractData(request: any) {
-    return request.company.schemaName
+    const token = request.query.token
+    const dataTable = jwt.verify(token, process.env.JWTKEY as string)
+    const schemaName = request.company.schemaName
+    return { schemaName, dataTable }
 }
 
 async function getMenu(dbName: string) {
@@ -31,11 +38,24 @@ async function getMenu(dbName: string) {
         ON "Item"."category"::uuid = "Category"."uuid"
         WHERE "Item"."menu" = true;
       `).then((data: any) => {
-        console.log(data)
         menu = data[0]
       })
       return menu
     } catch (error) {
+        throw new Error(`${error}`)
+    }
+}
+
+async function getBills(dbName: string, dataTable: any) {
+    try {
+        const bills = await Bills.schema(dbName).findAll({
+            where: {
+                uuid_table: dataTable.table_uuid,
+            }
+        })
+        return bills
+    } catch (error) {
+        console.log(error)
         throw new Error(`${error}`)
     }
 }
