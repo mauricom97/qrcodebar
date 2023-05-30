@@ -1,10 +1,10 @@
 import { Sequelize } from "sequelize-typescript";
 
 export const sequelize = new Sequelize({
-    username: process.env.POSTGRES_USERNAME,
-    password: process.env.POSTGRES_PASSWORD,
+    username: 'postgres',
+    password: 'root',
     database: "qrcodebar",
-    host: process.env.POSTGRES_HOST,
+    host: 'localhost',
     dialect: "postgres",
     port: 5432
 })
