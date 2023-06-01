@@ -1,11 +1,13 @@
 {
     "compilerOptions": {
-      "target": "es6",
-      "module": "commonjs",
-      "outDir": "build",
-      "strict": true,
-      "esModuleInterop": true
+    "module": "commonjs",
+    "target": "es6",
+    "lib": ["es6"],
+    "outDir": "dist",
+    "rootDir": "src",
+    "esModuleInterop": true,
+    "sourceMap": true
     },
-    "include": ["src"],
+    "include": ["src/**/*.ts", "src/db/config/database.js"],
     "exclude": ["node_modules", "**/*.spec.ts"]
   }
