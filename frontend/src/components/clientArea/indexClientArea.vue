@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="text-h5 q-ma-md" style="text-align: center">
+    <div class="text-h5 q-ma-md" style="text-align: center;">
       {{ bill ? `Comanda: ${bill}` : "Nenhuma comanda selecionada" }}
     </div>
     <q-tab-panels v-model="tab" animated>
       <q-tab-panel name="menu">
-        <MenuClient class="q-pa-md q-mt-none q-pa-none" />
+        <MenuClient class="q-pa-md q-mt-none q-pa-none" @newBill="setNewBill"/>
       </q-tab-panel>
 
       <q-tab-panel name="bills">
@@ -46,6 +46,12 @@ export default {
   },
   mounted() {
     this.bill = localStorage.getItem("bill");
+  },
+  methods: {
+    setNewBill(bill) {
+      this.bill = bill;
+      localStorage.setItem("bill", bill);
+    }
   },
   components: {
     MenuClient,
