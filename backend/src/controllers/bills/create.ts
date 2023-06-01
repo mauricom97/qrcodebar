@@ -1,18 +1,13 @@
 import Bill from "../../db/models/Bills";
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken'
-import * as redis from 'redis';
-const client: any = redis.createClient();
-
 export const create = async (req: any, res: Response) => {
     try {
-        await client.connect()
         const requestData = extractData(req)
         await analyseData(requestData)
         let bill = requestData.infoToken.bill
-        const billInCache = await setBillInCache(requestData, bill)
+        const billInCache = await setBillInCache(req, requestData, bill)
         bill = await createBill(req, requestData)
-        client.quit();
         return res.send(bill)
     } catch (error) {
         console.log(error)
@@ -48,32 +43,35 @@ async function analyseData(request: any) {
 }
 
 
-async function setBillInCache(request: any, bill: any) {
+async function setBillInCache(req: any, request: any, bill: any) {
     try {
-        const existBillInCache = await getCacheBills(request)
-        console.log(existBillInCache)
-        if(existBillInCache) {
+        let existBillInCache = await getCacheBills(req, request)
+        if(existBillInCache && !existBillInCache.bills.includes(bill)) {
             existBillInCache.bills.push(bill)
+        } else if(!existBillInCache || existBillInCache.bills.length === 0) {
+            existBillInCache = {bills: [bill]}
         }
-        await client.set(`${request.infoToken.company_uuid}${request.infoToken.table_uuid}`, JSON.stringify(existBillInCache), (error: any, reply: any) => {
+        await req.redisClient.set(`${request.infoToken.company_uuid}${request.infoToken.table_uuid}`, JSON.stringify(existBillInCache), (error: any, reply: any) => {
             if (error) {
                 console.error(error);
             }
         })
+        return existBillInCache
     } catch (error) {
         console.log(error)
         throw new Error(`${error}`)
     }
 }
 
-async function getCacheBills(request: any) {
+async function getCacheBills(req: any,request: any) {
     try {
-        let bills =  await client.get(`${request.infoToken.company_uuid}${request.infoToken.table_uuid}`, (error: any, reply: any) => {
+        let bills =  await req.redisClient.get(`${request.infoToken.company_uuid}${request.infoToken.table_uuid}`, (error: any, reply: any) => {
             if (error) {
                 console.error(error);
             }
         })
         bills = JSON.parse(bills)
+
         return bills
     } catch (error) {
         console.log(error)

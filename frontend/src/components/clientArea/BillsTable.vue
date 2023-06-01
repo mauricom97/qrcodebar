@@ -31,14 +31,14 @@ export default {
   },
   methods: {
     getBills() {
-      const timeConsult = 2000;
+      const timeConsult = 500;
       setInterval(() => {
         const token = this.$route.query.token;
 
         let config = {
           method: "get",
           maxBodyLength: Infinity,
-          url: "http://192.168.1.7:3353/bills",
+          url: process.env.VUE_APP_SERVICE_CACHE_URL+'bills',
           headers: {
             token: token
           }
@@ -60,4 +60,5 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+</style>

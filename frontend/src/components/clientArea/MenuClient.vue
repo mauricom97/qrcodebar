@@ -1,72 +1,78 @@
 <template>
   <div style="padding: 0px; margin: 0px">
-    <q-list
-      bordered
-      class="rounded-borders q-my-md"
-      v-for="(itensCategoria, category) in menu"
-      :key="category"
-    >
-      <q-expansion-item class="q-pa-md">
-        <template v-slot:header>
-          <q-item-section> {{ category }} </q-item-section>
-        </template>
+    <q-scroll-area style="height: 70vh; width: 100%">
+      <q-list
+        bordered
+        class="rounded-borders q-my-md"
+        v-for="(itensCategoria, category) in menu"
+        :key="category"
+      >
+        <q-expansion-item class="q-pa-md">
+          <template v-slot:header>
+            <q-item-section> {{ category }} </q-item-section>
+          </template>
 
-        <q-card>
-          <q-card-section>
-            <q-list dense>
-              <q-item v-for="item in itensCategoria" :key="item.uuid" clickable>
-                <q-item-section class="item-details" style="padding: 2%">
-                  <q-item-label>{{ item.name }}</q-item-label>
-                  <q-item-label caption>{{ item.description }}</q-item-label>
-                  <q-item-label style="color: rgb(0, 255, 13)" caption>
-                    <q-badge outline align="middle" color="teal">
-                      R${{ item.price }}
-                    </q-badge>
-                  </q-item-label>
-                  <div class="details-button q-mt-sm abolsute-bottom">
-                    <div class="quantity-control absolute-right q-mr-md">
-                      <q-btn
-                        @click="removeItem(item.uuid)"
-                        icon="remove"
-                        dense
-                        flat
-                      ></q-btn>
-                      <!-- <div class="center-align" style="width: 25px">
+          <q-card>
+            <q-card-section>
+              <q-list dense>
+                <q-item
+                  v-for="item in itensCategoria"
+                  :key="item.uuid"
+                  clickable
+                >
+                  <q-item-section class="item-details" style="padding: 2%">
+                    <q-item-label>{{ item.name }}</q-item-label>
+                    <q-item-label caption>{{ item.description }}</q-item-label>
+                    <q-item-label style="color: rgb(0, 255, 13)" caption>
+                      <q-badge outline align="middle" color="teal">
+                        R${{ item.price }}
+                      </q-badge>
+                    </q-item-label>
+                    <div class="details-button q-mt-sm abolsute-bottom">
+                      <div class="quantity-control absolute-right q-mr-md">
+                        <q-btn
+                          @click="removeItem(item.uuid)"
+                          icon="remove"
+                          dense
+                          flat
+                        ></q-btn>
+                        <!-- <div class="center-align" style="width: 25px">
                         {{ quantity }}
                       </div> -->
-                      <q-input
-                        v-model="itensRequestObj[item.uuid]"
-                        type="number"
-                        dense
-                        class="center-align"
-                        style="width: 25px"
-                      ></q-input>
+                        <q-input
+                          v-model="itensRequestObj[item.uuid]"
+                          type="number"
+                          dense
+                          class="center-align"
+                          style="width: 25px"
+                        ></q-input>
+                        <q-btn
+                          @click="addItem(item.uuid)"
+                          icon="add"
+                          dense
+                          flat
+                        ></q-btn>
+                      </div>
                       <q-btn
-                        @click="addItem(item.uuid)"
-                        icon="add"
-                        dense
-                        flat
-                      ></q-btn>
+                        outline
+                        rounded
+                        class="q-mt-md"
+                        style="width: 100%"
+                        color="primary"
+                        label="Ver detalhes"
+                        @click="showDetails(item)"
+                      />
                     </div>
-                    <q-btn
-                      outline
-                      rounded
-                      class="q-mt-md"
-                      style="width: 100%"
-                      color="primary"
-                      label="Ver detalhes"
-                      @click="showDetails(item)"
-                    />
-                  </div>
-                </q-item-section>
-              </q-item>
-            </q-list>
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
 
-      <q-separator />
-    </q-list>
+        <q-separator />
+      </q-list>
+    </q-scroll-area>
     <q-btn
       :disable="itensRequestArray.length === 0"
       color="primary"
@@ -162,19 +168,23 @@
         <q-separator />
 
         <q-card-section style="max-height: 50vh" class="scroll">
-          <div class="q-pa-md" style="max-width: 350px">
-            <q-list bordered separator>
+          <div class="q-pa-md">
+            <q-list
+              bordered
+              padding
+              class="rounded-borders text-primary q-my-sm"
+              v-for="existingBill in existingBills"
+              :key="existingBill"
+            >
               <q-item
+                style="text-align: center"
                 clickable
                 v-ripple
-                v-for="bill in existingBills"
-                :key="bill"
+                :active="bill === existingBill"
+                @click="bill = existingBill"
+                active-class="my-menu-link"
               >
-                <q-item-section
-                  class="q-ma-sm text-h6"
-                  style="text-align: center"
-                  >{{ bill }}
-                </q-item-section>
+                <q-item-section>{{ existingBill }}</q-item-section>
               </q-item>
             </q-list>
             <div class="q-ma-sm" style="text-align: center">
@@ -184,6 +194,7 @@
                 :disable="btnCreateBill"
                 color="primary"
                 @click="createBill()"
+                v-close-popup
                 label="Criar outra comanda"
               />
             </div>
@@ -193,8 +204,15 @@
         <q-separator />
 
         <q-card-actions align="right">
-          <q-btn flat label="Cancelar" color="primary" @click="sendRequest()" v-close-popup />
-          <q-btn flat label="Confirmar" color="primary" v-close-popup />
+          <q-btn flat label="Cancelar" color="primary" v-close-popup />
+          <q-btn
+            flat
+            label="Confirmar"
+            :disable="bill === null"
+            color="primary"
+            @click="sendRequest()"
+            v-close-popup
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -232,7 +250,8 @@ export default {
       toolbar: ref(false),
       slide: ref(1),
       dialogConfimRequest: ref(false),
-      modalSelectBill: ref(false)
+      modalSelectBill: ref(false),
+      link: ref("inbox")
     };
   },
   created() {},
@@ -293,28 +312,29 @@ export default {
       this.itemPrice = item.price;
     },
 
-    selectBill() {
+    async selectBill() {
       if (this.existingBills.length > 0) {
+        this.bill = localStorage.getItem("bill");
         this.btnCreateBill = false;
         this.modalSelectBill = true;
       } else {
-        this.bill = _.random(1000, 10000);
-        localStorage.setItem("bill", this.bill);
-        this.sendRequest();
+        await this.generateNewBill();
+        await this.sendRequest();
       }
     },
 
     async createBill() {
-      this.bill = _.random(1000, 10000);
-      localStorage.setItem("bill", this.bill);
+      await this.generateNewBill();
       await this.sendRequest();
       await this.getExistingBills();
       this.btnCreateBill = true;
     },
 
     sendRequest() {
+      this.setOrAlterBill(this.bill);
       const token = this.$route.query.token;
 
+      this.bill = localStorage.getItem("bill");
       let data = { itens: [] };
       for (let item of this.itensRequestArray) {
         data.itens.push({
@@ -325,7 +345,7 @@ export default {
       let config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: `http://192.168.1.7:3006/bills?bill=${this.bill}`,
+        url: process.env.VUE_APP_BACKEND_URL+`/bills?bill=${this.bill}`,
         headers: {
           token: token,
           "Content-Type": "application/json",
@@ -358,7 +378,7 @@ export default {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: `http://192.168.1.7:3006/item/menu?token=${token}`
+        url: process.env.VUE_APP_BACKEND_URL+`/item/menu?token=${token}`
       };
 
       axios
@@ -384,7 +404,7 @@ export default {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: "http://192.168.1.7:3353/bills",
+        url: process.env.VUE_APP_SERVICE_CACHE_URL+'/bills',
         headers: {
           token: token
         }
@@ -394,12 +414,27 @@ export default {
         .request(config)
         .then((response) => {
           console.log(JSON.stringify(response.data));
-          console.log(response.data)
-          this.existingBills = response.data.bills.map((bill) => bill)
+          if (response.data) {
+            this.existingBills = response.data.bills.map((bill) => bill);
+          } else if (!response.data || response.data.bills.length === 0) {
+            this.setOrAlterBill("");
+          }
         })
         .catch((error) => {
           console.log(error);
         });
+    },
+    setOrAlterBill(bill) {
+      localStorage.setItem("bill", bill);
+      this.$emit("newBill", bill);
+    },
+
+    generateNewBill() {
+      this.bill = _.random(1000, 10000);
+      while (this.existingBills.includes(this.bill)) {
+        this.bill = _.random(1000, 10000);
+      }
+      this.setOrAlterBill(this.bill);
     }
   },
   mounted() {
@@ -422,4 +457,9 @@ export default {
 .center-align input[type="number"] {
   text-align: center;
 }
+</style>
+<style lang="sass">
+.my-menu-link
+  color: white
+  background: #F2C037
 </style>
