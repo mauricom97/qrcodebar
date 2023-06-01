@@ -345,7 +345,7 @@ export default {
       let config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: process.env.VUE_APP_BACKEND_URL+`/bills?bill=${this.bill}`,
+        url: `${process.env.VUE_APP_BACKEND_URL}/bills?bill=${this.bill}`,
         headers: {
           token: token,
           "Content-Type": "application/json",
@@ -378,7 +378,7 @@ export default {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: process.env.VUE_APP_BACKEND_URL+`/item/menu?token=${token}`
+        url: `${process.env.VUE_APP_BACKEND_URL}/item/menu?token=${token}`
       };
 
       axios
@@ -404,7 +404,7 @@ export default {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: process.env.VUE_APP_SERVICE_CACHE_URL+'/bills',
+        url: `${process.env.VUE_APP_SERVICE_CACHE_URL}/bills`,
         headers: {
           token: token
         }

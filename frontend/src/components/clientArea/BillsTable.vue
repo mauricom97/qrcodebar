@@ -38,7 +38,7 @@ export default {
         let config = {
           method: "get",
           maxBodyLength: Infinity,
-          url: process.env.VUE_APP_SERVICE_CACHE_URL+'bills',
+          url: `${process.env.VUE_APP_SERVICE_CACHE_URL}/bills`,
           headers: {
             token: token
           }
