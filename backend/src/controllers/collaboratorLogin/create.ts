@@ -25,7 +25,7 @@ function extractData(request: { body: { username: string, password: string, coll
 async function createCollaboratorLogin(request: { username: string, password: string, collaborator_uuid: string, company_uuid: string }) {
     const newCollaborator = { username: request.username, password: await getHash(request.password), collaborator_uuid: request.collaborator_uuid, company_uuid: request.company_uuid }
     console.log(newCollaborator)
-    let collaborator = await CollaboratorLogin.schema('qrcodebaradmin').create(newCollaborator)
+    let collaborator = await CollaboratorLogin.create(newCollaborator)
     collaborator = collaborator.dataValues
     return {
         username: collaborator.username,

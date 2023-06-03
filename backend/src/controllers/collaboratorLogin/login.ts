@@ -27,7 +27,7 @@ function extractData(request: {body: { username: string, password: string }}): {
 
 async function getCollaboratorLogin(request: { username: string, password: string }) {
     try {
-        const collaborator = await CollaboratorLogin.schema('qrcodebaradmin').findOne({ where: { username: request.username } })
+        const collaborator = await CollaboratorLogin.findOne({ where: { username: request.username } })
         if (collaborator) {
             const isMatch = await bcrypt.compare(request.password, collaborator.password)
             if (isMatch) {

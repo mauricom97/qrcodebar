@@ -7,39 +7,47 @@ class Bill extends Model {
     public code!: number
     public uuid_item!: string
     public quantity!: number
+    public company_uuid!: string
 }
 
-Bill.init({
-    uuid: {
+Bill.init(
+    {
+      uuid: {
         type: DataTypes.UUID, // <- Altere para UUID
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
+      },
+      code: {
+        type: DataTypes.INTEGER,
+      },
+      uuid_item: {
+        type: DataTypes.UUID,
+      },
+      quantity: {
+        type: DataTypes.INTEGER,
+      },
+      status: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
+      },
+      uuid_table: {
+        type: DataTypes.UUID,
+      },
+      company_uuid: {
+        type: DataTypes.UUID,
+        allowNull: false,
+      },
     },
-    code: {
-        type: DataTypes.INTEGER
-    },
-    uuid_item: {
-        type: DataTypes.UUID
-    },
-    uuid_table: {
-        type: DataTypes.UUID
-    },
-    quantity: {
-        type: DataTypes.INTEGER
-    },
-    status: {
-        type: DataTypes.INTEGER
+    {
+      sequelize,
+      modelName: 'Bill',
+      tableName: 'bills',
+      timestamps: false,
+      schema: 'public'
     }
-}, {
-    sequelize,
-    modelName: 'Bill',
-    tableName: "bills",
-    timestamps: false
-})
-
-
-Bill.beforeCreate((model, options) => {
+  );
+  Bill.beforeCreate((model, options) => {
     model.uuid = uuidv4();
 });
-Bill.sync();
-export default Bill
+
+  export default Bill;

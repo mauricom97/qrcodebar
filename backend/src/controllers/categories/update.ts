@@ -5,7 +5,7 @@ export const update = async (req: any, res: Response) => {
     try {
         const requestData = extractData(req)
         await analyseData(requestData)
-        const category = await updateCategory(req.company.schemaName, requestData.uuid, requestData.name)
+        const category = await updateCategory(requestData.uuid, requestData.name)
         return res.send(category)
     } catch (error) {
         console.log(error)
@@ -26,9 +26,9 @@ async function analyseData(request: any) {
     return request
 }
 
-async function updateCategory(dbName: string, uuid: any, name: string) {
+async function updateCategory(uuid: any, name: string) {
     try {
-        const category = await Category.schema(dbName).update({ name }, { where: { uuid } })
+        const category = await Category.update({ name }, { where: { uuid } })
         return category
     } catch (error) {
         console.log(error)

@@ -40,7 +40,7 @@ Collaborator.init({
     modelName: 'Collaborator',
     tableName: "collaborators",
     timestamps: false,
-    schema: 'qrcodebaradmin'
+    schema: 'public'
 })
 Collaborator.beforeCreate((model, options) => {
     model.uuid = uuidv4();

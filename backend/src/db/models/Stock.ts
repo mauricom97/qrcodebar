@@ -12,10 +12,15 @@ Stock.init({
     },
     quantity: {
         type: DataTypes.STRING
-    }
+    },
+    company_uuid: {
+        type: DataTypes.UUID,
+        allowNull: false,
+    },
 }, {
     tableName: "stock",
     timestamps: false,
+    schema: 'public',
     sequelize
 })
 Stock.beforeCreate((model, options) => {
