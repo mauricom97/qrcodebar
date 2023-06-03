@@ -25,7 +25,7 @@ function extractData(request: { body: { firstName: string, lastName: string, ema
 async function createCollaborator(request: { firstName: string, lastName: string, email: string, phone: string, birthday: Date, type: number }): Promise<{ firstName: string, lastName: string, email: string, phone: string, birthday: Date, type: number }> {
     const newCollaborator = { firstName: request.firstName, lastName: request.lastName, email: request.email, phone: request.phone, birthday: moment(request.birthday, 'YYYY-MM-DD').format('YYYY-MM-DD'), type: request.type }
     console.log(newCollaborator)
-    let collaborator = await Collaborator.schema('qrcodebaradmin').create(newCollaborator)
+    let collaborator = await Collaborator.create(newCollaborator)
     collaborator = collaborator.dataValues
     return {
         firstName: collaborator.firstName,

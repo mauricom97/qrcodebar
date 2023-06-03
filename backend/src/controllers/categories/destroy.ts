@@ -5,7 +5,7 @@ export const destroy = async (req: any, res: Response) => {
     try {
         const requestData = extractData(req)
         await analyseData(requestData)
-        const category = await destroyCategory(req.company.schemaName, requestData.uuid)
+        const category = await destroyCategory(requestData.uuid)
         res.send(`quantity: ${category}`)
     } catch (error) {
         console.log(error)
@@ -23,9 +23,9 @@ async function analyseData(request: any) {
     return request
 }
 
-async function destroyCategory(dbName: string, uuid: any) {
+async function destroyCategory(uuid: any) {
     try {
-        const category = await Category.schema(dbName).destroy({ where: { uuid } })
+        const category = await Category.destroy({ where: { uuid } })
         return category
     } catch (error) {
         console.log(error)

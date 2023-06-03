@@ -18,8 +18,9 @@ export const auth = async (req: any, res: any, next: any) => {
         req.company = company
         req.redisClient = redisClient
         next()
-    } catch (error) {
-        return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' })
+    } catch (error: any) {
+        console.log(error)
+        return res.status(500).send({ auth: false, message: `${error.message}` })
     }
 }
 

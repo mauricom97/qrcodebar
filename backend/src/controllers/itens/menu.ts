@@ -9,9 +9,9 @@ import jwt from 'jsonwebtoken'
 
 export const menu = async (req: Request, res: Response) => {
     try {
-        const { schemaName, dataTable } = extractData(req)
-        const menu = await getMenu(schemaName)
-        const bills = await getBills(schemaName, dataTable)
+        const { companyUuid, dataTable } = extractData(req)
+        const menu = await getMenu('public')
+        const bills = await getBills(companyUuid, dataTable)
         return res.send({menu, bills})
     } catch (error) {
         console.log(error)
@@ -22,8 +22,8 @@ export const menu = async (req: Request, res: Response) => {
 function extractData(request: any) {
     const token = request.query.token
     const dataTable = jwt.verify(token, process.env.JWTKEY as string)
-    const schemaName = request.company.schemaName
-    return { schemaName, dataTable }
+    const companyUuid = request.company.uuid
+    return { companyUuid, dataTable }
 }
 
 async function getMenu(dbName: string) {
@@ -46,11 +46,13 @@ async function getMenu(dbName: string) {
     }
 }
 
-async function getBills(dbName: string, dataTable: any) {
+async function getBills(companyUuid: string, dataTable: any) {
     try {
-        const bills = await Bills.schema(dbName).findAll({
+        console.log(dataTable)
+        const bills = await Bills.findAll({
             where: {
                 uuid_table: dataTable.table_uuid,
+                company_uuid: companyUuid
             }
         })
         return bills

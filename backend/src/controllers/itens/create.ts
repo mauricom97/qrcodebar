@@ -22,13 +22,7 @@ function extractData(request: { body: { name: string, price: string, menu: boole
 }
 
 async function createItem(req: any, request: { name: string, price: string, menu: boolean, description: string, category: string }): Promise<{ name: string, price: number, menu: boolean, category: string }> {
-    const newItem = { name: request.name, price: request.price, menu: request.menu, description: request.description, category: request.category }
-    let item = await Item.schema(req.company.schemaName).create(newItem)
-    item = item.dataValues
-    return {
-        name: item.name,
-        price: item.price,
-        menu: item.menu,
-        category: item.category
-    }
+    const newItem = { name: request.name, price: request.price, menu: request.menu, description: request.description, category: request.category, company_uuid: req.company.uuid }
+    let item = await Item.create(newItem)
+    return item
 } 

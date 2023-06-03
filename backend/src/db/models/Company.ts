@@ -47,16 +47,13 @@ Company.init({
     },
     address: {
         type: DataTypes.STRING
-    },
-    schemaName: {
-        type: DataTypes.STRING
     }
 }, {
     sequelize,
     modelName: 'Company',
     tableName: "companies",
     timestamps: false,
-    schema: 'qrcodebaradmin'
+    schema: 'public'
 })
 Company.beforeCreate((model, options) => {
     model.uuid = uuidv4();

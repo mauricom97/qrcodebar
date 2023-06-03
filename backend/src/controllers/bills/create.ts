@@ -6,7 +6,7 @@ export const create = async (req: any, res: Response) => {
         const requestData = extractData(req)
         await analyseData(requestData)
         let bill = requestData.infoToken.bill
-        const billInCache = await setBillInCache(req, requestData, bill)
+        await setBillInCache(req, requestData, bill)
         bill = await createBill(req, requestData)
         return res.send(bill)
     } catch (error) {
@@ -17,6 +17,7 @@ export const create = async (req: any, res: Response) => {
 
 function extractData(request: any) {
     try {
+        console.log(request.company)
         let itens = request.body.itens
         const token = request.headers.token
         const dataTable: any = jwt.verify(token, process.env.JWTKEY as string)
@@ -27,6 +28,7 @@ function extractData(request: any) {
         itens = itens.map((item: any) => {
             item.code = parseInt(bill)
             item.uuid_table = dataTable.table_uuid
+            item.company_uuid = dataTable.company_uuid
             return item
         })
         return { itens, infoToken }
@@ -81,7 +83,7 @@ async function getCacheBills(req: any,request: any) {
 
 async function createBill(req: any, request: {itens: Array<any>, infoToken: any}) {
     try {
-        let bill = await Bill.schema(req.company.schemaName).bulkCreate(request.itens)
+        let bill = await Bill.bulkCreate(request.itens)
         return bill
     } catch (error) {
         console.log(error)

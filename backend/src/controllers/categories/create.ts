@@ -5,7 +5,7 @@ export const create = async (req: any, res: Response) => {
     try {
         const requestData = extractData(req)
         await analyseData(requestData)
-        const category = await createCategory(req.company.schemaName, requestData.name)
+        const category = await createCategory(req, requestData.name)
         return res.send(category)
     } catch (error) {
         console.log(error)
@@ -24,9 +24,9 @@ async function analyseData(request: any) {
     return request
 }
 
-async function createCategory(dbName: string, name: string) {
+async function createCategory(req: any, name: string) {
     try {
-        const category = await Category.schema(dbName).create({ name })
+        const category = await Category.create({ name, company_uuid: req.company.uuid })
         return category
     } catch (error) {
         console.log(error)

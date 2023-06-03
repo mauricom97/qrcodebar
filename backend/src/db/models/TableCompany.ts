@@ -17,12 +17,17 @@ TableCompany.init({
         type: DataTypes.INTEGER,
         autoIncrement: true
     },
+    company_uuid: {
+        type: DataTypes.UUID,
+        allowNull: false
+      },
     description: {
         type: DataTypes.TEXT
     }
 }, {
     tableName: "company_table",
     timestamps: false,
+    schema: 'public',
     sequelize
 })
 TableCompany.beforeCreate((model, options) => {

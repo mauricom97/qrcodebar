@@ -6,7 +6,7 @@ export const get = async (req: any, res: Response) => {
     try {
 
         const filters = extractData(req)
-        const categories = await getCategories(req.company.schemaName, filters.menu)
+        const categories = await getCategories(filters.menu)
         
         return res.send(categories)
     } catch (error) {
@@ -21,9 +21,9 @@ function extractData(req: any) {
     return { menu }
 }
 
-async function getCategories(dbName: string, menu: boolean) {
+async function getCategories(menu: boolean) {
     try {
-        const categories = await Category.schema(dbName).findAll({
+        const categories = await Category.findAll({
             include: [{ model: Item, as: 'itens'}]
         })
         return categories

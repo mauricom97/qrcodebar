@@ -25,14 +25,15 @@ CollaboratorsLogin.init({
         type: DataTypes.STRING
     },
     company_uuid: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
     }
 }, {
     sequelize,
     modelName: 'CollaboratorsLogin',
     tableName: "collaboratorsLogin",
     timestamps: false,
-    schema: 'qrcodebaradmin'
+    schema: 'public'
 })
 CollaboratorsLogin.beforeCreate((model, options) => {
     model.uuid = uuidv4();

@@ -32,12 +32,17 @@ Item.init({
     },
     category: {
         type: DataTypes.UUID, // <- Altere para UUID
-    }
+    },
+    company_uuid: {
+        type: DataTypes.UUID,
+        allowNull: false,
+    },
 }, {
     sequelize,
     modelName: 'Item',
     tableName: "itens",
-    timestamps: false
+    timestamps: false,
+    schema: 'public'
 })
 
 

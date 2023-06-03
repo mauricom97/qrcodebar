@@ -17,10 +17,15 @@ QrCode.init({
     },
     image: {
         type: DataTypes.STRING
-    }
+    },
+    company_uuid: {
+        type: DataTypes.UUID,
+        allowNull: false
+    },
 }, {
     tableName: "qrcode",
     timestamps: false,
+    schema: 'public',
     sequelize
 })
 QrCode.beforeCreate((model, options) => {

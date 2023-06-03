@@ -36,18 +36,6 @@ function extractData(req: { body: { cnpj: string, stateRegistration: string, raz
 
 async function createCompany(request: { cnpj: string, stateRegistration: string, razaoSocial: string, nomeFantasia: string, phone: string, email: string, state: string, city: string, neighborhood: string, address: string, schemaName: string }) {
     const newCompany = { cnpj: request.cnpj, stateRegistration: request.stateRegistration, razaoSocial: request.razaoSocial, nomeFantasia: request.nomeFantasia, phone: request.phone, email: request.email, state: request.state, city: request.city, neighborhood: request.neighborhood, address: request.address, schemaName: request.schemaName }
-    let company = await Company.schema('qrcodebaradmin').create(newCompany)
-    company = company.dataValues
-    return {
-        cnpj: company.cnpj,
-        stateRegistration: company.stateRegistration,
-        razaoSocial: company.razaoSocial,
-        nomeFantasia: company.nomeFantasia,
-        phone: company.phone,
-        email: company.email,
-        state: company.state,
-        city: company.city,
-        neighborhood: company.neighborhood,
-        address: company.address
-    }
+    let company = await Company.create(newCompany)
+    return company
 }

@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 export const get = async (req: any, res: Response) => {
     try {
         const requestData = extractData(req)
-        const bills = await getBills(req, requestData)
+        const bills = await getBills(requestData)
         return res.send(bills)
     } catch (error) {
         console.log(error)
@@ -23,9 +23,9 @@ function extractData(request: any) {
     }
 }
 
-async function getBills(req: any, request: any) {
+async function getBills(request: any) {
     try {
-        const bills = await Bill.schema(req.company.schemaName).findAll({
+        const bills = await Bill.findAll({
             where: {
                 uuid_table: request.table_uuid,
             }

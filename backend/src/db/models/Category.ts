@@ -15,12 +15,17 @@ Category.init({
     },
     name: {
         type: DataTypes.STRING
-    }
+    },
+    company_uuid: {
+        type: DataTypes.UUID,
+        allowNull: false,
+    },
 }, {
     sequelize,
     modelName: 'Category',
     tableName: "categories",
-    timestamps: false
+    timestamps: false,
+    schema: 'public'
 });
 
 Category.beforeCreate((model, options) => {
