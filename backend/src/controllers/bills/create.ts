@@ -1,6 +1,7 @@
 import Bill from "../../db/models/Bills";
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken'
+import { io } from "../../server";
 export const create = async (req: any, res: Response) => {
     try {
         const requestData = extractData(req)
@@ -8,6 +9,7 @@ export const create = async (req: any, res: Response) => {
         let bill = requestData.infoToken.bill
         await setBillInCache(req, requestData, bill)
         bill = await createBill(req, requestData)
+        io.emit('changeBills', { message: 'Dados atualizados' });
         return res.send(bill)
     } catch (error) {
         console.log(error)

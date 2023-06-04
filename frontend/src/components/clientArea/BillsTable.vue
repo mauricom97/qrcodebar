@@ -31,8 +31,6 @@ export default {
   },
   methods: {
     getBills() {
-      const timeConsult = 500;
-      setInterval(() => {
         const token = this.$route.query.token;
 
         let config = {
@@ -54,7 +52,6 @@ export default {
           .catch((error) => {
             console.log(error);
           });
-      }, timeConsult);
     }
   }
 };

@@ -224,6 +224,7 @@ import axios from "axios";
 import _ from "lodash";
 import { ref } from "vue";
 import { mapGetters } from "vuex";
+import io from 'socket.io-client/dist/socket.io';
 export default {
   name: "CafeMenu",
 
@@ -242,7 +243,8 @@ export default {
       priceTotal: 0,
       bill: null,
       existingBills: [],
-      btnCreateBill: false
+      btnCreateBill: false,
+      message: null,
     };
   },
   setup() {
@@ -254,7 +256,9 @@ export default {
       link: ref("inbox")
     };
   },
-  created() {},
+  created() {
+    this.socket = io(process.env.VUE_APP_BACKEND_URL);
+  },
   methods: {
     addItem(uuid) {
       this.itensRequestObj[uuid]++;
@@ -438,10 +442,10 @@ export default {
     }
   },
   mounted() {
-    this.getMenu();
-    setInterval(() => {
+    this.socket.on('changeBills', (data) => {
       this.getExistingBills();
-    }, 1000);
+    });
+    this.getMenu();
   }
 };
 </script>

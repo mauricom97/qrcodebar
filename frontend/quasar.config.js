@@ -1,4 +1,5 @@
 const DotEnv = require('dotenv-webpack');
+const path = require('path');
 /* eslint-env node */
 
 /*
@@ -79,6 +80,7 @@ module.exports = configure(function (ctx) {
           .use(ESLintPlugin, [{ extensions: [ 'js', 'vue' ] }])
       },
       extendWebpack(config) {
+        config.resolve.alias['socket.io-client'] = path.resolve(__dirname, 'node_modules/socket.io-client');
         config.plugins.push(
           new DotEnv()
         );
@@ -110,7 +112,8 @@ module.exports = configure(function (ctx) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+      ]
     },
 
     // animations: 'all', // --- includes all animations
