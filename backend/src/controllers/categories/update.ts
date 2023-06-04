@@ -14,6 +14,7 @@ export const update = async (req: any, res: Response) => {
 }
 
 function extractData(request: Request) {
+    console.log(request.body)
     const { name } = request.body
     const { uuid } = request.query
     return { name, uuid }
