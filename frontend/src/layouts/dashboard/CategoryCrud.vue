@@ -17,7 +17,7 @@
     </div>
 
     <div class="table-container">
-      <table class="q-table">
+      <table class="q-table" summary="List of categories">
         <thead>
           <tr>
             <th>Nome</th>
