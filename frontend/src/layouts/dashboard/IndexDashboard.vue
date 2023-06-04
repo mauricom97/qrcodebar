@@ -22,7 +22,7 @@
           "
         >
           <q-list padding>
-            <q-item clickable v-ripple>
+            <q-item clickable v-ripple @click="modifyDrawer('bills')">
               <q-item-section avatar>
                 <q-icon name="inbox" />
               </q-item-section>
@@ -30,7 +30,7 @@
               <q-item-section> Tables </q-item-section>
             </q-item>
 
-            <q-item active clickable v-ripple>
+            <q-item active clickable v-ripple @click="modifyDrawer('crudCategory')">
               <q-item-section avatar>
                 <q-icon name="star" />
               </q-item-section>
@@ -38,7 +38,7 @@
               <q-item-section> Star </q-item-section>
             </q-item>
 
-            <q-item clickable v-ripple>
+            <q-item clickable v-ripple @click="modifyDrawer('crudItens')">
               <q-item-section avatar>
                 <q-icon name="send" />
               </q-item-section>
@@ -73,7 +73,9 @@
 
       <q-page-container>
         <q-page padding>
-            <TablesCompany></TablesCompany>
+            <TablesCompany v-if="typeView === 'bills'"></TablesCompany>
+            <CategoryCrud v-if="typeView === 'crudCategory'"></CategoryCrud>
+            <ItensCrud v-if="typeView === 'crudItens'"></ItensCrud>
         </q-page>
       </q-page-container>
     </q-layout>
@@ -82,16 +84,31 @@
 
 <script>
 import TablesCompany from "./TablesCompany.vue";
+import CategoryCrud from "./CategoryCrud";
+import ItensCrud from "./ItensCrud.vue";
 import { ref } from "vue";
 
 export default {
   setup() {
     return {
-      drawer: ref(false)
+      drawer: ref(false),
+      send: ref(false)
     };
   },
   components: {
-    TablesCompany
+    TablesCompany,
+    CategoryCrud,
+    ItensCrud
+  },
+  data() {
+    return {
+      typeView: "bills"
+    };
+  },
+  methods: {
+    modifyDrawer(type) {
+      this.typeView = type;
+    }
   }
 };
 </script>
