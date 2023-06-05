@@ -24,6 +24,13 @@ export default {
       loginValid: false
     };
   },
+
+  created() {
+    if (localStorage.getItem("token")) {
+      this.loginValid = true;
+    }
+  },
+
   methods: {
     loginValidity(token) {
       this.loginValid = true;
