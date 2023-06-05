@@ -1,13 +1,13 @@
 <template>
   <div>
-    <!-- <LoginCompany></LoginCompany> -->
-    <IndexDashboard></IndexDashboard>
+    <LoginCompany v-if="!loginValid" @login="loginValidity"></LoginCompany>
+    <IndexDashboard v-if="loginValid"></IndexDashboard>
   </div>
 </template>
 
 <script>
 // import { ref } from "vue";
-// import LoginCompany from "./login/CompanyLogin.vue"
+import LoginCompany from "./login/CompanyLogin.vue"
 import IndexDashboard from "./dashboard/IndexDashboard.vue"
 export default {
   // setup() {
@@ -16,8 +16,19 @@ export default {
   //   };
   // }
   components: {
-    // LoginCompany,
+    LoginCompany,
     IndexDashboard
+  },
+  data() {
+    return {
+      loginValid: false
+    };
+  },
+  methods: {
+    loginValidity(token) {
+      this.loginValid = true;
+      localStorage.setItem("token", token);
+    }
   }
 };
 </script>
