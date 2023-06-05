@@ -32,7 +32,12 @@
       </q-card-section>
 
       <q-card-section>
-        <q-checkbox size="sd" v-model="rememberPassword" val="sm" label="Lembrar a senha" />
+        <q-checkbox
+          size="sd"
+          v-model="rememberPassword"
+          val="sm"
+          label="Lembrar a senha"
+        />
       </q-card-section>
 
       <q-card-actions align="right">
@@ -49,6 +54,7 @@
 
 <script>
 import { ref } from "vue";
+import axios from "axios";
 
 export default {
   setup() {
@@ -70,7 +76,30 @@ export default {
         this.passwordFieldType === "password" ? "text" : "password";
     },
     login() {
-      // Lógica de autenticação
+      let data = JSON.stringify({
+        username: this.user,
+        password: this.password
+      });
+
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: `${process.env.VUE_APP_BACKEND_URL}/collaboratorLogin/login`,
+        headers: {
+          "Content-Type": "application/json"
+        },
+        data: data
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+          this.$emit("login", response.data.token);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }
 };
