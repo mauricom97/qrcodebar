@@ -1,7 +1,7 @@
 <template>
   <div class="categories">
+    
     <h1>Lista de Categorias</h1>
-
     <div class="row">
       <div class="col-8">
         <q-btn
@@ -11,8 +11,9 @@
           class="action-button q-my-md"
         />
       </div>
-      <div class="col-4">
-        <q-input rounded outlined v-model="text" label="Buscar categoria" />
+      <div class="row q-pb-xs
+" style="width: 100%;">
+        <q-input style="width: 100%;" rounded outlined v-model="text" label="Buscar categoria" />
       </div>
     </div>
 
@@ -190,9 +191,6 @@ export default {
 </script>
 
 <style scoped>
-.categories {
-  margin: 20px;
-}
 
 h1 {
   font-size: 24px;

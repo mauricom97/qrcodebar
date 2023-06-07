@@ -6,29 +6,45 @@
           <q-card-section>
             <q-item-section side top>
               <div>
-                <q-badge color="blue" class="q-mx-sm" text-color="black" :label="'Mesa '+item.table"/>
-                <q-badge color="orange" text-color="black" :label="'Quantidade x'+item.quantity"/>
+                <q-badge
+                  color="blue"
+                  class="q-mx-sm"
+                  text-color="black"
+                  :label="'Mesa ' + item.table"
+                />
+                <q-badge
+                  color="orange"
+                  text-color="black"
+                  :label="'Quantidade x' + item.quantity"
+                />
               </div>
             </q-item-section>
             <div class="text-h6">
               {{ item.name }}
             </div>
             <div>
-              <q-chip color="primary" @click="alterStatusItem()" icon="bookmark"
-                >Status do item</q-chip
+              <q-chip
+                color="primary"
+                @click="alterStatusItem()"
+                icon="bookmark"
+                >{{
+                  item.status == 1 ? "Novo Pedido" : "Pedido entrgue"
+                }}</q-chip
               >
               <q-chip
                 color="red"
                 text-color="white"
                 icon="alarm"
-                :label="item.hourBill"
+                :label="item.waitingTime"
               />
             </div>
           </q-card-section>
 
           <q-card-section class="q-pt-none">
             <div class="text-h6">Observações do cliente</div>
-            {{ item.descriptionBill }}
+            {{
+              item.descriptionBill ? item.descriptionBill : "Sem observações"
+            }}
           </q-card-section>
 
           <q-separator />
@@ -83,41 +99,19 @@ import { ref } from "vue";
 import { useQuasar } from "quasar";
 import { onBeforeUnmount } from "vue";
 import moment from "moment";
+import _ from "lodash";
+import axios from "axios";
+import io from 'socket.io-client/dist/socket.io';
+
 export default {
   data() {
     return {
-      itens: [
-        {
-          uuid: "1a2b3c4d",
-          name: "Café passado com leite",
-          status: 1,
-          descriptionBill: "Pouco leite",
-          hourBill: "15:00",
-          table: 1,
-          quantity: 2
-        },
-        {
-          uuid: "5e6f7g8h",
-          name: "Café expresso",
-          status: 1,
-          descriptionBill: "Sem açúcar",
-          hourBill: "10:30",
-          table: 2,
-          quantity: 1
-        },
-        {
-          uuid: "9i8j7k6l",
-          name: "Cappuccino",
-          status: 0,
-          descriptionBill: "Pouca espuma",
-          hourBill: "18:45",
-          table: 3,
-          quantity: 1
-        }
-      ]
+      itens: []
     };
   },
-
+  created() {
+    this.socket = io(process.env.VUE_APP_BACKEND_URL);
+  },
   setup() {
     const $q = useQuasar();
     let timer;
@@ -146,16 +140,73 @@ export default {
       }
     };
   },
+
+  mounted() {
+    this.getBills();
+    this.socket.on('changeBills', (data) => {
+      this.getBills();
+    })
+  },
+
   methods: {
     alterStatusItem() {
       this.modalAlterStatusItem = true;
     },
     async onLeft(uuidBill) {
       const audio = new Audio(require("../../assets/plim.mp3")); // Caminho para o arquivo de áudio
-      await audio.play();
-      setTimeout(() => {
-        this.itens = this.itens.filter(item => item.uuid !== uuidBill);
-      }, 300);
+      let data = JSON.stringify({
+        status: 2
+      });
+
+      let config = {
+        method: "put",
+        maxBodyLength: Infinity,
+        url: `${process.env.VUE_APP_BACKEND_URL}/bills/update?uuid=${uuidBill}`,
+        headers: {
+          token:
+          localStorage.getItem("token"),
+          "Content-Type": "application/json"
+        },
+        data: data
+      };
+
+      axios
+        .request(config)
+        .then(async (response) => {
+          console.log(JSON.stringify(response.data));
+          setTimeout(() => {
+            this.itens = this.itens.filter((item) => item.uuid !== uuidBill);
+          }, 300);
+          await audio.play();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+    },
+
+    getBills() {
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `${process.env.VUE_APP_BACKEND_URL}/bills/table`,
+        headers: {
+          token:
+            localStorage.getItem("token")
+        }
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+          this.itens = response.data;
+          this.itens = this.itens.filter((item) => item.status == 1);
+          this.itens = _.orderBy(this.itens, ["createdAt"], ["asc"]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }
 };

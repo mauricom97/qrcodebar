@@ -40,16 +40,38 @@
     </q-table>
 
     <q-dialog v-model="showForm" persistent>
-      <q-card>
+      <q-card style="width: 35%">
         <q-card-section>
+          <div class="text-h4">
+            Informações do item
+          </div>
           <q-form @submit="saveItem">
-            <q-input v-model="form.name" label="Nome" />
-            <q-input v-model="form.price" label="Preço" type="number" />
-            <q-input v-model="form.category" label="Categoria" />
-            <q-checkbox v-model="form.menu" label="Menu" />
+            <q-input outlined v-model="form.name" class="q-mb-sm" label="Nome" />
+            <q-input
+              outlined
+              v-model="form.price"
+              type="text"
+              label="Preço"
+              :reverse="true"
+              :mask-reverse="true"
+              class="q-mb-sm"
+            />
+            <q-select
+              outlined
+              v-model="categorySelect"
+              :options="optionsCategories"
+              label="Selecione a categoria"
+              class="q-mb-sm"
+            />
+            <q-checkbox v-model="form.menu" label="Item do cardapio" />
 
             <q-card-actions align="right">
-              <q-btn color="primary" label="Salvar" type="submit" />
+              <q-btn
+                color="primary"
+                label="Salvar"
+                @click="createItem()"
+                type="submit"
+              />
               <q-btn color="negative" label="Cancelar" @click="cancelForm" />
             </q-card-actions>
           </q-form>
@@ -61,19 +83,26 @@
 
 <script>
 import axios from "axios";
+import { ref } from "vue";
 
 export default {
   name: "ItemTable",
+  setup() {
+    return {
+      categorySelect: ref(null),
+      optionsCategories: []
+    };
+  },
   data() {
     return {
       items: [],
       form: {
         uuid: "",
         name: "",
-        price: 0,
-        category: "",
+        price: "",
         menu: false
       },
+      categories: [],
       showForm: false,
       columns: [
         {
@@ -107,6 +136,47 @@ export default {
     };
   },
   methods: {
+    createItem() {
+      let data = {
+        name: this.form.name,
+        price: this.form.price,
+        category: this.form.category,
+        menu: this.form.menu
+      };
+
+      data.category = this.categories.find((category) => {
+        console.log(category.name);
+        console.log(this.categorySelect);
+        return category.name === this.categorySelect;
+      });
+      data.category = data.category.uuid;
+
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: `${process.env.VUE_APP_BACKEND_URL}/item/create`,
+        headers: {
+          token: localStorage.getItem("token")
+        },
+        data: data
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+          this.getItems();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    formatCurrency() {
+      // Update the input value with the formatted currency
+      this.form.price = this.form.price.replace(/[^\d.]/g, "");
+    },
+
     getItems() {
       // Faz uma requisição GET para obter os itens da API
       let config = {
@@ -114,8 +184,7 @@ export default {
         maxBodyLength: Infinity,
         url: `${process.env.VUE_APP_BACKEND_URL}/item`,
         headers: {
-          token:
-            localStorage.getItem("token")
+          token: localStorage.getItem("token"),
         }
       };
 
@@ -123,7 +192,7 @@ export default {
         .request(config)
         .then((response) => {
           console.log(JSON.stringify(response.data));
-            this.items = response.data;
+          this.items = response.data;
         })
         .catch((error) => {
           console.log(error);
@@ -182,15 +251,64 @@ export default {
       this.form.menu = false;
       this.showForm = false;
     },
+
     getCategoryName(categoryId) {
       // Obtém o nome da categoria com base no ID
       // Faz uma requisição GET para obter os dados da categoria na API
       // Você precisa implementar essa função para obter o nome da categoria corretamente
       return "";
+    },
+    getCategories() {
+      // Faz uma requisição GET para obter as categorias da API
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `${process.env.VUE_APP_BACKEND_URL}/categories`,
+        headers: {
+          token: localStorage.getItem("token")
+        }
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+          this.optionsCategories = response.data.map(
+            (category) => category.name
+          );
+          this.categories = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    formatInput() {
+      // Remove all non-digit characters
+      let value = this.form.price.replace(/[^\d]/g, "");
+      
+      // Check if the value has a decimal separator
+      let decimalIndex = value.indexOf(".");
+      
+      if (decimalIndex !== -1) {
+        // If the decimal separator is present, split the value into integer and decimal parts
+        let integerPart = value.substring(0, decimalIndex);
+        let decimalPart = value.substring(decimalIndex + 1);
+        
+        // Format the integer part with the mask
+        integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        
+        // Update the input value with the formatted value
+        this.form.price = integerPart + "," + decimalPart;
+      } else {
+        // If there is no decimal separator, format the entire value with the mask
+        value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        this.form.price = value;
+      }
     }
   },
   mounted() {
     this.getItems();
+    this.getCategories();
   }
 };
 </script>

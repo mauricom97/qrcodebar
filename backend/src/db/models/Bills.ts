@@ -1,19 +1,24 @@
 import { Model, DataTypes } from 'sequelize';
 import { sequelize } from "../config/database"
 import { v4 as uuidv4 } from 'uuid';
-
+import Item from './Item';
 class Bill extends Model {
     public uuid!: string
     public code!: number
     public uuid_item!: string
     public quantity!: number
     public company_uuid!: string
+    public status!: number // Adicione essa propriedade
+
+    // Adicione as seguintes propriedades
+    public descriptionBill!: string
+    public hourBill!: string
 }
 
 Bill.init(
     {
       uuid: {
-        type: DataTypes.UUID, // <- Altere para UUID
+        type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
       },
@@ -22,6 +27,10 @@ Bill.init(
       },
       uuid_item: {
         type: DataTypes.UUID,
+        references: {
+          model: Item,
+          key: 'uuid'
+        }
       },
       quantity: {
         type: DataTypes.INTEGER,
@@ -37,6 +46,13 @@ Bill.init(
         type: DataTypes.UUID,
         allowNull: false,
       },
+      descriptionBill: {
+        type: DataTypes.STRING, // Defina o tipo apropriado para a descrição da fatura
+      },
+      createdAt: {
+        type: DataTypes.STRING, // Defina o tipo apropriado para a hora da fatura
+        defaultValue: new Date().toISOString()
+      },
     },
     {
       sequelize,
@@ -45,9 +61,13 @@ Bill.init(
       timestamps: false,
       schema: 'public'
     }
-  );
-  Bill.beforeCreate((model, options) => {
+);
+
+Bill.belongsTo(Item, { foreignKey: 'uuid_item', as: 'item' });
+
+
+Bill.beforeCreate((model, options) => {
     model.uuid = uuidv4();
 });
 
-  export default Bill;
+export default Bill;
