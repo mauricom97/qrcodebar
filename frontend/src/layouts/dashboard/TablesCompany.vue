@@ -58,7 +58,7 @@
               <q-item>
                 <q-item-section avatar>
                   <q-avatar>
-                    <img src="../../../src/media/certo.png" draggable="false" />
+                    <img alt="logo" src="../../../src/media/certo.png" draggable="false" />
                   </q-avatar>
                 </q-item-section>
                 <q-item-section>Item entregue</q-item-section>
