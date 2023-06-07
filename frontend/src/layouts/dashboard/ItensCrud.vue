@@ -84,6 +84,7 @@
 <script>
 import axios from "axios";
 import { ref } from "vue";
+import _ from "lodash";
 
 export default {
   name: "ItemTable",
@@ -295,13 +296,12 @@ export default {
         let decimalPart = value.substring(decimalIndex + 1);
         
         // Format the integer part with the mask
-        integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        
+        integerPart = _.replace(integerPart, /[^0-9.]/g, '');        
         // Update the input value with the formatted value
         this.form.price = integerPart + "," + decimalPart;
       } else {
         // If there is no decimal separator, format the entire value with the mask
-        value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        value = _.replace(value, /[^0-9.]/g, '');
         this.form.price = value;
       }
     }
