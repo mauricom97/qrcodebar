@@ -19,7 +19,7 @@
         <q-input
           filled
           v-model="password"
-          :type="passwordFieldType"
+          :type="viewPassword ? 'text' : 'password'"
           label="Senha"
           lazy-rules
           :rules="[(val) => !!val || 'Campo obrigatório']"
@@ -59,14 +59,14 @@ import axios from "axios";
 export default {
   setup() {
     return {
-      tab: ref(""),
-      passwordFieldType: "password"
+      tab: ref("")
     };
   },
   data() {
     return {
       user: "",
       password: "",
+      viewPassword: false,
       rememberPassword: false
     };
   },
