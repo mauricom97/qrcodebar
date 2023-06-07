@@ -2,6 +2,7 @@ import { Model, DataTypes } from 'sequelize';
 import { sequelize } from "../config/database"
 import { v4 as uuidv4 } from 'uuid';
 import Category from './Category';
+import Bill from './Bills';
 
 class Item extends Model {
     public uuid!: string
@@ -14,7 +15,7 @@ class Item extends Model {
 
 Item.init({
     uuid: {
-        type: DataTypes.UUID, // <- Altere para UUID
+        type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
@@ -31,7 +32,12 @@ Item.init({
         type: DataTypes.BOOLEAN
     },
     category: {
-        type: DataTypes.UUID, // <- Altere para UUID
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: {
+            model: Category,
+            key: 'uuid'
+        }
     },
     company_uuid: {
         type: DataTypes.UUID,
@@ -43,12 +49,13 @@ Item.init({
     tableName: "itens",
     timestamps: false,
     schema: 'public'
-})
-
+});
 
 Item.belongsTo(Category, { foreignKey: 'category' });
+// Item.hasMany(Bill, { foreignKey: 'uuid_item', as: 'bills' });
+
 Item.beforeCreate((model, options) => {
     model.uuid = uuidv4();
 });
-Item.sync();
-export default Item
+
+export default Item;

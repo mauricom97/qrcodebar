@@ -50,7 +50,7 @@ async function getCollaboratorLogin(request: { username: string, password: strin
 
 function generateToken(payload: any): string {
     const secret = process.env.JWTKEY as string // coloque sua chave secreta aqui
-    const options = { expiresIn: '1h' } // defina a expiração do token (opcional)
+    const options = { expiresIn: '24h' } // defina a expiração do token (opcional)
     const token = jwt.sign(payload, secret, options)
     return token
   }
