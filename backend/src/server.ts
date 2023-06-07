@@ -21,7 +21,13 @@ const io = new Server(server, {
 
 
 app.use(morgan('tiny'))
-app.use(cors())
+
+let corsOptions = {
+    origin: process.env.FRONTEND_URL // Compliant
+  };
+
+
+app.use(cors(corsOptions))
 app.use(helmet())
 app.use(express.json())
 
