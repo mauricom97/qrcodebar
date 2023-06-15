@@ -206,6 +206,10 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          if (error.response && error.response.status === 401) {
+              // Token inválido ou expirado, redireciona para a tela de login
+              this.$router.push('/login')
+            }
         });
     }
   }

@@ -10,7 +10,7 @@ dotenv.config();
 const app = express()
 app.use(morgan('tiny'))
 let corsOptions = {
-    origin: process.env.FRONTEND_URL
+    origin: '*'
   };
 app.use(cors(corsOptions))
 app.use(helmet())

@@ -1,14 +1,15 @@
 <template>
   <div>
-    <LoginCompany v-if="!loginValid" @login="loginValidity"></LoginCompany>
-    <IndexDashboard v-if="loginValid"></IndexDashboard>
+    <IndexDashboard></IndexDashboard>
+    <!-- <IndexLP></IndexLP> -->
   </div>
 </template>
 
 <script>
 // import { ref } from "vue";
-import LoginCompany from "./login/CompanyLogin.vue"
+// import LoginCompany from "./login/CompanyLogin.vue"
 import IndexDashboard from "./dashboard/IndexDashboard.vue"
+// import IndexLP from "./LearningPage/IndexLP.vue"
 export default {
   // setup() {
   //   return {
@@ -16,26 +17,23 @@ export default {
   //   };
   // }
   components: {
-    LoginCompany,
+    // LoginCompany,
     IndexDashboard
+    // IndexLP
   },
   data() {
     return {
-      loginValid: false
     };
   },
 
   created() {
-    if (localStorage.getItem("token")) {
-      this.loginValid = true;
-    }
   },
 
   methods: {
-    loginValidity(token) {
-      this.loginValid = true;
-      localStorage.setItem("token", token);
-    }
+    // loginValidity(token) {
+    //   this.loginValid = true;
+    //   localStorage.setItem("token", token);
+    // }
   }
 };
 </script>

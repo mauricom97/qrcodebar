@@ -42,11 +42,14 @@
     <q-dialog v-model="showForm" persistent>
       <q-card style="width: 35%">
         <q-card-section>
-          <div class="text-h4">
-            Informações do item
-          </div>
+          <div class="text-h4">Informações do item</div>
           <q-form @submit="saveItem">
-            <q-input outlined v-model="form.name" class="q-mb-sm" label="Nome" />
+            <q-input
+              outlined
+              v-model="form.name"
+              class="q-mb-sm"
+              label="Nome"
+            />
             <q-input
               outlined
               v-model="form.price"
@@ -85,6 +88,8 @@
 import axios from "axios";
 import { ref } from "vue";
 import _ from "lodash";
+import { Vue, router } from 'vue-router'
+
 
 export default {
   name: "ItemTable",
@@ -179,25 +184,33 @@ export default {
     },
 
     getItems() {
-      // Faz uma requisição GET para obter os itens da API
-      let config = {
-        method: "get",
-        maxBodyLength: Infinity,
-        url: `${process.env.VUE_APP_BACKEND_URL}/item`,
-        headers: {
-          token: localStorage.getItem("token"),
-        }
-      };
+      try {
+        // Faz uma requisição GET para obter os itens da API
+        let config = {
+          method: "get",
+          maxBodyLength: Infinity,
+          url: `${process.env.VUE_APP_BACKEND_URL}/item`,
+          headers: {
+            token: localStorage.getItem("token")
+          }
+        };
 
-      axios
-        .request(config)
-        .then((response) => {
-          console.log(JSON.stringify(response.data));
-          this.items = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        axios
+          .request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+            this.items = response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+            if (error.response && error.response.status === 401) {
+              // Token inválido ou expirado, redireciona para a tela de login
+              this.$router.push('/login')
+            }
+          });
+      } catch (erro) {
+        throw erro;
+      }
     },
     saveItem() {
       // Faz uma requisição POST ou PUT para salvar o item na API
@@ -286,22 +299,22 @@ export default {
     formatInput() {
       // Remove all non-digit characters
       let value = this.form.price.replace(/[^\d]/g, "");
-      
+
       // Check if the value has a decimal separator
       let decimalIndex = value.indexOf(".");
-      
+
       if (decimalIndex !== -1) {
         // If the decimal separator is present, split the value into integer and decimal parts
         let integerPart = value.substring(0, decimalIndex);
         let decimalPart = value.substring(decimalIndex + 1);
-        
+
         // Format the integer part with the mask
-        integerPart = _.replace(integerPart, /[^0-9.]/g, '');        
+        integerPart = _.replace(integerPart, /[^0-9.]/g, "");
         // Update the input value with the formatted value
         this.form.price = integerPart + "," + decimalPart;
       } else {
         // If there is no decimal separator, format the entire value with the mask
-        value = _.replace(value, /[^0-9.]/g, '');
+        value = _.replace(value, /[^0-9.]/g, "");
         this.form.price = value;
       }
     }

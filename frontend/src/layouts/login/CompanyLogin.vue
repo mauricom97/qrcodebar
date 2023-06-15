@@ -43,6 +43,7 @@
       <q-card-actions align="right">
         <q-btn
           color="primary"
+          icon="send"
           label="Entrar"
           @click="login"
           :disable="!user || !password"
@@ -55,6 +56,7 @@
 <script>
 import { ref } from "vue";
 import axios from "axios";
+import { Vue, router } from 'vue-router'
 
 export default {
   setup() {
@@ -95,7 +97,11 @@ export default {
         .request(config)
         .then((response) => {
           console.log(JSON.stringify(response.data));
-          this.$emit("login", response.data.token);
+          if (response.data && response.data.token) {
+            localStorage.setItem("token", response.data.token);
+            this.$emit("contentDataUser", response.data.user);
+            this.$router.push('/')
+            }
         })
         .catch((error) => {
           console.log(error);
