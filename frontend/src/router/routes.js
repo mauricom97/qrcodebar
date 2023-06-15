@@ -7,6 +7,10 @@ const routes = [
   {
     path: '/clientArea',
     component: () => import('components/clientArea/indexClientArea.vue'),
+  },
+  {
+    path: '/login',
+    component: () => import('layouts/login/CompanyLogin.vue'),
   }
 ]
 

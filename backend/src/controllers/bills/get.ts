@@ -34,13 +34,14 @@ async function getBills(request: any) {
       include: [
         {
           model: Item,
-          attributes: ['name'],
+          attributes: ['name', 'price'],
           as: 'item',
         },
       ],
       attributes: [
         'uuid',
         'status',
+        'code',
         'descriptionBill',
         'createdAt',
         'quantity',
@@ -63,13 +64,14 @@ async function getBills(request: any) {
 }
 
 function formatBills(bills: any[]) {
-  console.log(bills);
   return bills.map((bill) => ({
     uuid: bill.uuid,
+    code: bill.code,
     name: bill.item ? bill.item.name : bill.item,
     status: bill.status,
     descriptionBill: bill.descriptionBill,
-    hourBill: bill.hourBill,
     quantity: bill.quantity,
+    item: bill.item,
+    createdAt: bill.createdAt
   }));
 }

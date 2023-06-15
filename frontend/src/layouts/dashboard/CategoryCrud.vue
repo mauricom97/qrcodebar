@@ -1,24 +1,29 @@
 <template>
   <div class="categories">
-    
-    <h1>Lista de Categorias</h1>
     <div class="row">
-      <div class="col-8">
+      <div class="col-3 absolute-left q-ma-sm">
+        <q-input
+          rounded
+          outlined
+          v-model="text"
+          label="Buscar categoria"
+        />
+
+      </div>
+      <div class="col absolute-right q-ma-sm">
         <q-btn
           @click="showCreateDialog"
           label="Nova Categoria"
           color="primary"
-          class="action-button q-my-md"
+          class="action-button"
         />
-      </div>
-      <div class="row q-pb-xs
-" style="width: 100%;">
-        <q-input style="width: 100%;" rounded outlined v-model="text" label="Buscar categoria" />
+
       </div>
     </div>
-
-    <div class="table-container">
-      <table class="q-table" summary="List of categories">
+    <div class="table-container q-mt-md
+">
+      <table class="q-table q-mt-xl
+" summary="List of categories">
         <thead>
           <tr>
             <th>Nome</th>
@@ -191,7 +196,6 @@ export default {
 </script>
 
 <style scoped>
-
 h1 {
   font-size: 24px;
   margin-bottom: 10px;

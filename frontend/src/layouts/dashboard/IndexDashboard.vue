@@ -8,12 +8,15 @@
     >
       <q-header elevated class="bg-cyan-8">
         <q-toolbar>
-          <q-toolbar-title>QRCODEBAR</q-toolbar-title>
+          <q-toolbar-title>{{ company.nomeFantasia }}</q-toolbar-title>
           <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
         </q-toolbar>
       </q-header>
 
-      <q-drawer v-model="drawer" show-if-above :width="200" :breakpoint="400">
+      <q-drawer v-model="drawer"
+        show-if-above 
+        :width="200" 
+        :breakpoint="400">
         <q-scroll-area
           style="
             height: calc(100% - 150px);
@@ -22,36 +25,92 @@
           "
         >
           <q-list padding>
-            <q-item clickable v-ripple @click="modifyDrawer('bills')">
+            <q-item
+              :active="typeView === 'bills'"
+              clickable
+              v-ripple
+              @click="modifyDrawer('bills')"
+            >
               <q-item-section avatar>
-                <q-icon name="inbox" />
+                <q-icon name="edit_note" />
               </q-item-section>
 
-              <q-item-section> Tables </q-item-section>
+              <q-item-section> Pedidos </q-item-section>
             </q-item>
 
-            <q-item active clickable v-ripple @click="modifyDrawer('crudCategory')">
+            <q-item
+              :active="typeView === 'crudCategory'"
+              clickable
+              v-ripple
+              @click="modifyDrawer('crudCategory')"
+            >
               <q-item-section avatar>
-                <q-icon name="star" />
+                <q-icon name="category" />
               </q-item-section>
 
-              <q-item-section> Star </q-item-section>
+              <q-item-section> Categories </q-item-section>
             </q-item>
 
-            <q-item clickable v-ripple @click="modifyDrawer('crudItens')">
+            <q-item
+              :active="typeView === 'crudItens'"
+              clickable
+              v-ripple
+              @click="modifyDrawer('crudItens')"
+            >
               <q-item-section avatar>
-                <q-icon name="send" />
+                <q-icon name="view_list" />
               </q-item-section>
 
-              <q-item-section> Send </q-item-section>
+              <q-item-section> Itens </q-item-section>
             </q-item>
 
+            
+            <q-item
+              :active="typeView === 'paymentArea'"
+              clickable
+              v-ripple
+              @click="modifyDrawer('paymentArea')"
+            >
+              <q-item-section avatar>
+                <q-icon name="payments" />
+              </q-item-section>
+
+              <q-item-section> Área de pagamento </q-item-section>
+            </q-item>
+
+
+
+          </q-list>
+
+
+
+
+
+          <q-list class="absolute-bottom">
             <q-item clickable v-ripple>
               <q-item-section avatar>
-                <q-icon name="drafts" />
+                <q-icon name="account_circle" />
               </q-item-section>
 
-              <q-item-section> Drafts </q-item-section>
+              <q-item-section> Perfil </q-item-section>
+
+              <q-menu transition-show="jump-down" transition-hide="jump-up">
+                <q-list style="min-width: 100px">
+                  <q-item clickable>
+                    <q-item-section avatar>
+                      <q-icon name="manage_accounts" />
+                    </q-item-section>
+                    <q-item-section>Editar usuario</q-item-section>
+                  </q-item>
+                  <q-separator />
+                  <q-item clickable>
+                    <q-item-section avatar>
+                      <q-icon color="negative" name="logout" />
+                    </q-item-section>
+                    <q-item-section icon="logout">Logout</q-item-section>
+                  </q-item>
+                </q-list>
+              </q-menu>
             </q-item>
           </q-list>
         </q-scroll-area>
@@ -59,23 +118,26 @@
         <q-img
           class="absolute-top"
           src="https://cdn.quasar.dev/img/material.png"
-          style="height: 150px"
+          style="height: 150px; text-align: center"
         >
           <div class="absolute-bottom bg-transparent">
             <q-avatar size="56px" class="q-mb-sm">
               <img alt="logo" src="https://cdn.quasar.dev/img/boy-avatar.png" />
             </q-avatar>
-            <div class="text-weight-bold">Razvan Stoenescu</div>
-            <div>@rstoenescu</div>
+            <div class="text-weight-bold">
+              {{ user.firstName }} {{ user.lastName }}
+            </div>
+            <div>{{ user.email }}</div>
           </div>
         </q-img>
       </q-drawer>
 
       <q-page-container>
         <q-page padding>
-            <TablesCompany v-if="typeView === 'bills'"></TablesCompany>
-            <CategoryCrud v-if="typeView === 'crudCategory'"></CategoryCrud>
-            <ItensCrud v-if="typeView === 'crudItens'"></ItensCrud>
+          <TablesCompany v-if="typeView === 'bills'"></TablesCompany>
+          <CategoryCrud v-if="typeView === 'crudCategory'"></CategoryCrud>
+          <ItensCrud v-if="typeView === 'crudItens'"></ItensCrud>
+          <PaymentArea v-if="typeView === 'paymentArea'"></PaymentArea>
         </q-page>
       </q-page-container>
     </q-layout>
@@ -86,8 +148,9 @@
 import TablesCompany from "./TablesCompany.vue";
 import CategoryCrud from "./CategoryCrud";
 import ItensCrud from "./ItensCrud.vue";
+import PaymentArea from "./PaymentArea.vue";
 import { ref } from "vue";
-
+import axios from "axios";
 export default {
   setup() {
     return {
@@ -98,16 +161,80 @@ export default {
   components: {
     TablesCompany,
     CategoryCrud,
-    ItensCrud
+    ItensCrud,
+    PaymentArea
   },
   data() {
     return {
-      typeView: "bills"
+      typeView: "bills",
+      user: {
+        firstName: "",
+        lastName: "",
+        email: ""
+      },
+      company: {
+        cnpj: "",
+        stateRegistration: "",
+        razaoSocial: "",
+        nomeFantasia: "",
+        phone: "",
+        state: "",
+        city: "",
+        neighborhood: "",
+        address: ""
+      }
     };
+  },
+  mounted() {
+    this.getUser();
+    this.getCompany();
   },
   methods: {
     modifyDrawer(type) {
       this.typeView = type;
+      this.drawer = false;
+    },
+
+    getCompany() {
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `${process.env.VUE_APP_BACKEND_URL}/company/getCompanyToken`,
+        headers: {
+          token: localStorage.getItem("token")
+        }
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+          this.company = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    getUser() {
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `${process.env.VUE_APP_BACKEND_URL}/collaborator/getUserToken`,
+        headers: {
+          token: localStorage.getItem("token")
+        }
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+          this.user = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }
 };

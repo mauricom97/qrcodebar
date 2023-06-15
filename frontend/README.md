@@ -1,6 +1,6 @@
-# Quasar App (frontend)
+# BaristaPro (frontend)
 
-A Quasar Project
+A BaristaPro Project
 
 ## Install the dependencies
 ```bash

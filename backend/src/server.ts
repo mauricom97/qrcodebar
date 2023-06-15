@@ -23,7 +23,7 @@ const io = new Server(server, {
 app.use(morgan('tiny'))
 
 let corsOptions = {
-    origin: process.env.FRONTEND_URL // Compliant
+    origin: '*'
   };
 
 
@@ -36,7 +36,7 @@ const PORT = parseInt(`${process.env.PORT || 3006}`);
 app.use(routes);
 
 io.on('connection', (socket) => {
-    console.log('A new user connected', socket)
+    console.log('A new user connected')
 })
 
 export { io }

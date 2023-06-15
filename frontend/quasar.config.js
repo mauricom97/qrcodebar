@@ -100,8 +100,8 @@ module.exports = configure(function (ctx) {
     // https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-framework
     framework: {
       config: {},
-
-      // iconSet: 'material-icons', // Quasar icon set
+      // iconSet: 'bootstrap-icons',
+      iconSet: 'material-icons', // Quasar icon set
       // lang: 'en-US', // Quasar language pack
 
       // For special cases outside of where the auto-import strategy can have an impact
@@ -122,7 +122,7 @@ module.exports = configure(function (ctx) {
 
     // https://v2.quasar.dev/quasar-cli-webpack/developing-ssr/configuring-ssr
     ssr: {
-      pwa: false,
+      pwa: true,
 
       // manualStoreHydration: true,
       // manualPostHydrationTrigger: true,
@@ -161,8 +161,8 @@ module.exports = configure(function (ctx) {
       
 
       manifest: {
-        name: `Quasar App`,
-        short_name: `Quasar App`,
+        name: `BaristaPro`,
+        short_name: `BaristaPro`,
         description: `A Quasar Project`,
         display: 'standalone',
         orientation: 'portrait',

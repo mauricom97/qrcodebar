@@ -1,4 +1,5 @@
 import CollaboratorLogin from "../../db/models/CollaboratorLogin"
+import Collaborator from "../../db/models/Collaborator"
 import { Request, Response } from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
@@ -27,14 +28,25 @@ function extractData(request: {body: { username: string, password: string }}): {
 
 async function getCollaboratorLogin(request: { username: string, password: string }) {
     try {
-        const collaborator = await CollaboratorLogin.findOne({ where: { username: request.username } })
-        if (collaborator) {
-            const isMatch = await bcrypt.compare(request.password, collaborator.password)
+        const collaboratorLogin = await CollaboratorLogin.findOne({ 
+            raw: true,
+            where: { 
+            username: request.username 
+        }})
+
+        if (collaboratorLogin) {
+            const isMatch = await bcrypt.compare(request.password, collaboratorLogin.password)
             if (isMatch) {
+                const collaborator = await Collaborator.findOne({
+                    raw: true,
+                    where: {
+                        uuid: collaboratorLogin.collaborator_uuid
+                    }
+                })
                 return {
-                    username: collaborator.username,
-                    collaborator_uuid: collaborator.collaborator_uuid,
-                    company_uuid: collaborator.company_uuid
+                    username: collaboratorLogin.username,
+                    collaborator_uuid: collaboratorLogin.collaborator_uuid,
+                    company_uuid: collaboratorLogin.company_uuid
                 }
             } else {
                 throw new Error('Password incorrect')
