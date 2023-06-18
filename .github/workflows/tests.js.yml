@@ -22,7 +22,7 @@ jobs:
           node-version: 14
       
       - name: Enter repository
-        run: cd backend
+        run: cd ./backend
         
       - name: Build
         run: npm run build
