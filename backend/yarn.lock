@@ -1458,11 +1458,6 @@
   "resolved" "https://registry.npmjs.org/@types/mime/-/mime-3.0.1.tgz"
   "version" "3.0.1"
 
-"@types/mocha@^10.0.1":
-  "integrity" "sha512-/fvYntiO1GeICvqbQ3doGDIP97vWmvFt83GKguJ6prmQM2iXZfFcq6YE8KteFyRtX2/h5Hf91BYvPodJKFYv5Q=="
-  "resolved" "https://registry.npmjs.org/@types/mocha/-/mocha-10.0.1.tgz"
-  "version" "10.0.1"
-
 "@types/morgan@^1.9.4":
   "integrity" "sha512-cXoc4k+6+YAllH3ZHmx4hf7La1dzUk6keTR4bF4b4Sc0mZxU/zK4wO7l+ZzezXm/jkYj/qC+uYGZrarZdIVvyQ=="
   "resolved" "https://registry.npmjs.org/@types/morgan/-/morgan-1.9.4.tgz"
