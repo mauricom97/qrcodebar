@@ -10,8 +10,10 @@ dotenv.config();
 const app = express()
 app.use(morgan('tiny'))
 let corsOptions = {
-    origin: '*'
-  };
+  origin: ['http://localhost:8080', 'https://app-frontend-qrcodebar.onrender.com'], // Adicione os IPs ou domínios permitidos aqui
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
+  allowedHeaders: ['Content-Type', 'Authorization, token'], // Cabeçalhos permitidos
+  }
 app.use(cors(corsOptions))
 app.use(helmet())
 app.use(express.json())
