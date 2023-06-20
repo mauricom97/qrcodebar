@@ -14,8 +14,9 @@ const app = express()
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "*",
-        methods: ["GET", "POST"]
+      origin: ['http://localhost:8080', 'https://app-frontend-qrcodebar.onrender.com'], // Adicione os IPs ou domínios permitidos aqui
+      methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
+      allowedHeaders: ['Content-Type', 'Authorization, token'], // Cabeçalhos permitidos
       }
 });
 
@@ -23,7 +24,9 @@ const io = new Server(server, {
 app.use(morgan('tiny'))
 
 let corsOptions = {
-    origin: '*'
+  origin: ['http://localhost:8080', 'https://app-frontend-qrcodebar.onrender.com'], // Adicione os IPs ou domínios permitidos aqui
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
+  allowedHeaders: ['Content-Type', 'Authorization, token'], // Cabeçalhos permitidos
   };
 
 
