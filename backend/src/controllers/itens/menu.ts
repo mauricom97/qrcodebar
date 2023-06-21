@@ -1,5 +1,3 @@
-import Item from '../../db/models/Item';
-import Category from '../../db/models/Category';
 import Bills from '../../db/models/Bills';
 import { Request, Response } from 'express';
 import { sequelize } from "../../db/config/database"

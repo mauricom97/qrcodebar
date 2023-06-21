@@ -1,5 +1,5 @@
 import Item from '../../db/models/Item';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import _ from 'lodash'
 import { Op } from 'sequelize'
 

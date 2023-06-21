@@ -36,9 +36,6 @@
                           dense
                           flat
                         ></q-btn>
-                        <!-- <div class="center-align" style="width: 25px">
-                        {{ quantity }}
-                      </div> -->
                         <q-input
                           v-model="itensRequestObj[item.uuid]"
                           type="number"
@@ -294,7 +291,6 @@ export default {
     removeItem(uuid) {
       if (this.itensRequestObj[uuid] > 0) {
         this.itensRequestObj[uuid]--;
-        const itemInfo = this.arrayItens.find((item) => item.uuid === uuid);
         let existItemInArray = this.itensRequestArray.find(
           (item) => item.uuid === uuid
         );

@@ -137,16 +137,6 @@ export default {
       this.confirm = true;
       // Aqui você pode adicionar a lógica para confirmar o pagamento do cliente
       // por exemplo, fazer uma requisição ao servidor para registrar o pagamento
-
-      // Exemplo:
-      // this.dialogPayBill = false;
-      // axios.post(`${process.env.VUE_APP_BACKEND_URL}/payments`, { total: this.totalPriceBill })
-      //   .then(response => {
-      //     // Lógica após o registro do pagamento
-      //   })
-      //   .catch(error => {
-      //     console.log(error);
-      //   });
     }
   }
 };

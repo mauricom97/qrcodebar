@@ -1,6 +1,5 @@
 import Category from "../../db/models/Category";
-import Item from "../../db/models/Item";
-import { Request, Response } from 'express';
+import { Response } from 'express';
 
 export const index = async (req: any, res: Response) => {
     try {
