@@ -43,7 +43,6 @@ async function analyseData(request: any) {
     if(!request.itens.length){
         throw new Error('Nenhum item foi enviado')
     }
-    return
 }
 
 

@@ -23,7 +23,7 @@
     <div class="table-container q-mt-md
 ">
       <table class="q-table q-mt-xl
-" summary="List of categories">
+">
         <thead>
           <tr>
             <th>Nome</th>

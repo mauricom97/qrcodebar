@@ -88,8 +88,6 @@
 import axios from "axios";
 import { ref } from "vue";
 import _ from "lodash";
-import { Vue, router } from 'vue-router'
-
 
 export default {
   name: "ItemTable",
@@ -184,33 +182,28 @@ export default {
     },
 
     getItems() {
-      try {
-        // Faz uma requisição GET para obter os itens da API
-        let config = {
-          method: "get",
-          maxBodyLength: Infinity,
-          url: `${process.env.VUE_APP_BACKEND_URL}/item`,
-          headers: {
-            token: localStorage.getItem("token")
-          }
-        };
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `${process.env.VUE_APP_BACKEND_URL}/item`,
+        headers: {
+          token: localStorage.getItem("token")
+        }
+      };
 
-        axios
-          .request(config)
-          .then((response) => {
-            console.log(JSON.stringify(response.data));
-            this.items = response.data;
-          })
-          .catch((error) => {
-            console.log(error);
-            if (error.response && error.response.status === 401) {
-              // Token inválido ou expirado, redireciona para a tela de login
-              this.$router.push('/login')
-            }
-          });
-      } catch (erro) {
-        throw erro;
-      }
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+          this.items = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+          if (error.response && error.response.status === 401) {
+            // Token inválido ou expirado, redireciona para a tela de login
+            this.$router.push("/login");
+          }
+        });
     },
     saveItem() {
       // Faz uma requisição POST ou PUT para salvar o item na API

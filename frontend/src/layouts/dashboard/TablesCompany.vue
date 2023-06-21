@@ -96,7 +96,6 @@
 
 <script>
 import { ref } from "vue";
-import { useQuasar } from "quasar";
 import { onBeforeUnmount } from "vue";
 import _ from "lodash";
 import axios from "axios";
@@ -112,14 +111,7 @@ export default {
     this.socket = io(process.env.VUE_APP_BACKEND_URL);
   },
   setup() {
-    const $q = useQuasar();
     let timer;
-
-    function finalize(reset) {
-      timer = setTimeout(() => {
-        reset();
-      }, 1000);
-    }
 
     onBeforeUnmount(() => {
       clearTimeout(timer);
