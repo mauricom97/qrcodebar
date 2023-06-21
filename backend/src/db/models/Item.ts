@@ -2,8 +2,6 @@ import { Model, DataTypes } from 'sequelize';
 import { sequelize } from "../config/database"
 import { v4 as uuidv4 } from 'uuid';
 import Category from './Category';
-import Bill from './Bills';
-
 class Item extends Model {
     public uuid!: string
     public name!: string
@@ -52,7 +50,6 @@ Item.init({
 });
 
 Item.belongsTo(Category, { foreignKey: 'category' });
-// Item.hasMany(Bill, { foreignKey: 'uuid_item', as: 'bills' });
 
 Item.beforeCreate((model, options) => {
     model.uuid = uuidv4();

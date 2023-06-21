@@ -98,7 +98,6 @@
 import { ref } from "vue";
 import { useQuasar } from "quasar";
 import { onBeforeUnmount } from "vue";
-import moment from "moment";
 import _ from "lodash";
 import axios from "axios";
 import io from 'socket.io-client/dist/socket.io';

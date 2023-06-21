@@ -1,5 +1,5 @@
 import TableCompany from '../../db/models/TableCompany';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 
 export const index = async (req: any, res: Response) => {
     try {

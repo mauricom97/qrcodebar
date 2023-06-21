@@ -18,7 +18,6 @@
 
 <script>
 import axios from "axios";
-import _ from "lodash";
 export default {
   data() {
     return {
@@ -56,6 +55,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>

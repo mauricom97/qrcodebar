@@ -37,12 +37,6 @@ async function getCollaboratorLogin(request: { username: string, password: strin
         if (collaboratorLogin) {
             const isMatch = await bcrypt.compare(request.password, collaboratorLogin.password)
             if (isMatch) {
-                const collaborator = await Collaborator.findOne({
-                    raw: true,
-                    where: {
-                        uuid: collaboratorLogin.collaborator_uuid
-                    }
-                })
                 return {
                     username: collaboratorLogin.username,
                     collaborator_uuid: collaboratorLogin.collaborator_uuid,

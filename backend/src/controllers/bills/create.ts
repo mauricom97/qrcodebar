@@ -1,5 +1,5 @@
 import Bill from "../../db/models/Bills";
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import jwt from 'jsonwebtoken'
 import { io } from "../../server";
 export const create = async (req: any, res: Response) => {
