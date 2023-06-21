@@ -1,5 +1,4 @@
 import CollaboratorLogin from "../../db/models/CollaboratorLogin"
-import Collaborator from "../../db/models/Collaborator"
 import { Request, Response } from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'

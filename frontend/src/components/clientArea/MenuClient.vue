@@ -220,7 +220,6 @@
 import axios from "axios";
 import _ from "lodash";
 import { ref } from "vue";
-import { mapGetters } from "vuex";
 import io from 'socket.io-client/dist/socket.io';
 export default {
   name: "CafeMenu",

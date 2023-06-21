@@ -2,13 +2,7 @@
   <div class="categories">
     <div class="row">
       <div class="col-3 absolute-left q-ma-sm">
-        <q-input
-          rounded
-          outlined
-          v-model="text"
-          label="Buscar categoria"
-        />
-
+        <q-input rounded outlined v-model="text" label="Buscar categoria" />
       </div>
       <div class="col absolute-right q-ma-sm">
         <q-btn
@@ -17,13 +11,13 @@
           color="primary"
           class="action-button"
         />
-
       </div>
     </div>
-    <div class="table-container q-mt-md
-">
-      <table class="q-table q-mt-xl
-" summary="List of categories">
+    <div class="table-container q-mt-md">
+      <table class="q-table q-mt-xl">
+        <caption>
+          Lista de categorias
+        </caption>
         <thead>
           <tr>
             <th>Nome</th>
