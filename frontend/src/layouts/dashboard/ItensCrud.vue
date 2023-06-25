@@ -10,15 +10,7 @@
         />
       </template>
 
-      <template v-slot:body-cell-category="props">
-        {{ getCategoryName(props.row.category) }}
-      </template>
-
-      <template v-slot:body-cell="props">
-        <q-td :props="props">
-          {{ props.value }}
-        </q-td>
-
+      <template v-slot:body-cell-actions="props">
         <q-td :props="props">
           <q-btn
             color="primary"
@@ -83,6 +75,7 @@
     </q-dialog>
   </q-page>
 </template>
+
 
 <script>
 import axios from "axios";

@@ -27,12 +27,5 @@ async function createCollaborator(request: { firstName: string, lastName: string
     console.log(newCollaborator)
     let collaborator = await Collaborator.create(newCollaborator)
     collaborator = collaborator.dataValues
-    return {
-        firstName: collaborator.firstName,
-        lastName: collaborator.lastName,
-        email: collaborator.email,
-        phone: collaborator.phone,
-        birthday: collaborator.birthday,
-        type: collaborator.type
-    }
+    return collaborator
 }

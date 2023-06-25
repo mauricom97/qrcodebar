@@ -6,7 +6,7 @@
       style="height: 100%"
       class="shadow-2 rounded-borders"
     >
-      <q-header elevated class="bg-cyan-8">
+      <q-header elevated class="bg-cyan-8 ">
         <q-toolbar>
           <q-toolbar-title>{{ company.nomeFantasia }}</q-toolbar-title>
           <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
