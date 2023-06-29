@@ -103,7 +103,7 @@
                     <q-item-section>Editar usuario</q-item-section>
                   </q-item>
                   <q-separator />
-                  <q-item clickable>
+                  <q-item clickable @click="logout()">
                     <q-item-section avatar>
                       <q-icon color="negative" name="logout" />
                     </q-item-section>
@@ -190,6 +190,11 @@ export default {
     this.getCompany();
   },
   methods: {
+
+    logout() {
+      localStorage.removeItem("token");
+      this.$router.push("/login");
+    },
     modifyDrawer(type) {
       this.typeView = type;
       this.drawer = false;
