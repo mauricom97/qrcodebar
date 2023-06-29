@@ -32,7 +32,7 @@
     </q-table>
 
     <q-dialog v-model="showForm" persistent>
-      <q-card style="width: 35%">
+      <q-card style="width: 35%" >
         <q-card-section>
           <div class="text-h4">Informações do item</div>
           <q-form @submit="saveItem">
