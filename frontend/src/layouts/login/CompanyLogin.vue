@@ -99,7 +99,7 @@ export default {
           if (response.data && response.data.token) {
             localStorage.setItem("token", response.data.token);
             this.$emit("contentDataUser", response.data.user);
-            this.$router.push("/");
+            this.$router.push("/dashborad");
           }
         })
         .catch((error) => {
