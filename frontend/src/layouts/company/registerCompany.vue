@@ -1,10 +1,10 @@
 <template>
-  <div class="q-pa-md absolute-center">
-    <q-card flat bordered class="my-card" style="min-width: 300px">
-      <q-carousel animated v-model="slide" style="height: 85vh">
+  <div class="q-pa-md absolute-center" style="width: 50%;">
+    <q-card flat bordered class="my-card" style="border-color: #9c27b0; border-width: 15px;">
+      <q-carousel animated v-model="slide" style="height: 70vh">
         <q-carousel-slide :name="1">
           <q-card-section>
-            <div class="text-h6">Informações da empresa</div>
+            <div class="text-h6" style="text-align: center;">Informações da empresa</div>
           </q-card-section>
 
           <q-card-section class="q-pt-none">
@@ -37,7 +37,7 @@
         </q-carousel-slide>
         <q-carousel-slide :name="2">
           <q-card-section>
-            <div class="text-h6">Endereço da empresa</div>
+            <div class="text-h6" style="text-align: center;">Endereço da empresa</div>
           </q-card-section>
           <q-card-section class="q-pt-none">
             <q-input
@@ -68,7 +68,7 @@
         </q-carousel-slide>
         <q-carousel-slide :name="3">
           <q-card-section>
-            <div class="text-h6">Contatos da empresa</div>
+            <div class="text-h6" style="text-align: center;">Contatos da empresa</div>
           </q-card-section>
           <q-input
             outlined
@@ -201,6 +201,7 @@
             v-if="slide < 3 || (slide >= 5 && slide < 6)"
             @click="incrementSlide()"
             class="absolute-bottom-right q-ma-md"
+            color="purple"
             name="arrow_forward_ios"
             size="3em"
           />
@@ -208,6 +209,7 @@
             v-if="(slide > 1 && slide < 4) || slide > 5"
             @click="slide = slide - 1"
             class="absolute-bottom-left q-ma-md"
+            color="purple"
             name="arrow_back_ios"
             size="3em"
           />
@@ -215,6 +217,7 @@
             v-if="slide === 3"
             @click="registerCompany()"
             class="absolute-bottom-right q-ma-md"
+            color="purple"
             name="check"
             size="3em"
           />
@@ -222,6 +225,7 @@
             v-if="slide === 6"
             @click="registerNewLogin()"
             class="absolute-bottom-right q-ma-md"
+            color="purple"
             name="check"
             size="3em"
           />

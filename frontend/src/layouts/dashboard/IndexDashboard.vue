@@ -193,7 +193,7 @@ export default {
 
     logout() {
       localStorage.removeItem("token");
-      this.$router.push("/login");
+      this.$router.push("/");
     },
     modifyDrawer(type) {
       this.typeView = type;
