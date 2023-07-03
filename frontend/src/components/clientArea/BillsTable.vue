@@ -30,27 +30,25 @@ export default {
   },
   methods: {
     getBills() {
-        const token = this.$route.query.token;
+      const token = this.$route.query.token;
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `${process.env.VUE_APP_BACKEND_URL}/bills/getBillsByTable`,
+        headers: {
+          token: token
+        }
+      };
 
-        let config = {
-          method: "get",
-          maxBodyLength: Infinity,
-          url: `${process.env.VUE_APP_SERVICE_CACHE_URL}/bills`,
-          headers: {
-            token: token
-          }
-        };
-
-        axios
-          .request(config)
-          .then((response) => {
-            console.log(JSON.stringify(response.data));
-            console.log(response.data);
-            this.onlyBills = response.data.bills.map((bill) => bill);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+          this.onlyBills = response.data.map((bill) => bill.code);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }
 };
