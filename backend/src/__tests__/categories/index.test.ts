@@ -1,45 +1,54 @@
 import { index } from '../../controllers/categories/index';
 import Category from '../../db/models/Category';
 
-describe('index', () => {
-  let mockRequest: any;
-  let mockResponse: any;
+// Mock dos objetos necessários
+const mockReq: any = {
+  company: { uuid: 'mocked-uuid' }
+};
 
+const mockRes: any = {
+  send: jest.fn()
+};
+
+// Mock da função `findAll` do modelo Category
+jest.mock('../../db/models/Category', () => ({
+  findAll: jest.fn()
+}));
+
+describe('Index', () => {
   beforeEach(() => {
-    // Mock Express request and response objects
-    mockRequest = {};
-    mockResponse = {
-      send: jest.fn(),
-    };
-  });
-
-  afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should fetch and send categories', async () => {
-    // Mock the dependencies and functions
-    const mockCategories: any = ['category1', 'category2'];
-    jest.spyOn(Category, 'findAll').mockResolvedValue(mockCategories);
+  it('deve retornar as categorias', async () => {
+    // Mock do retorno da função `findAll`
+    const mockCategories = ['Categoria 1', 'Categoria 2'];
+    (Category.findAll as jest.Mock).mockResolvedValue(mockCategories);
 
-    // Call the index function
-    await index(mockRequest, mockResponse);
+    await index(mockReq, mockRes);
 
-    // Assertions
-    expect(Category.findAll).toHaveBeenCalled();
-    expect(mockResponse.send).toHaveBeenCalledWith(mockCategories);
+    expect(Category.findAll).toHaveBeenCalledWith({
+      where: {
+        company_uuid: 'mocked-uuid'
+      }
+    });
+
+    expect(mockRes.send).toHaveBeenCalledWith(mockCategories);
   });
 
-  it('should handle an error and send the error message', async () => {
-    // Mock the dependencies and functions
-    jest.spyOn(Category, 'findAll').mockRejectedValue('your-mock-error');
+  it('deve retornar o erro em caso de falha', async () => {
+    // Mock do lançamento de uma exceção
+    const mockError = new Error('Erro simulado');
+    (Category.findAll as jest.Mock).mockRejectedValue(mockError);
 
-    // Call the index function
-    await index(mockRequest, mockResponse);
+    await index(mockReq, mockRes);
 
-    // Assertions
-    expect(mockResponse.send).toHaveBeenCalledWith('your-mock-error');
+    expect(Category.findAll).toHaveBeenCalledWith({
+      where: {
+        company_uuid: 'mocked-uuid'
+      }
+    });
+
+    expect(mockRes.send).toHaveBeenCalledWith(mockError);
   });
-
-  // Add more test cases for other scenarios as needed
 });
