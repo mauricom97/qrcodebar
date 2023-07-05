@@ -50,7 +50,7 @@ export default {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: "http://localhost:3006/tableCompany/",
+        url: `${process.env.VUE_APP_BACKEND_URL}/tableCompany/`,
         headers: {
           token: localStorage.getItem("token")
         }
