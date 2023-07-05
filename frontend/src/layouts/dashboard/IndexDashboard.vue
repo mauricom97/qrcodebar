@@ -79,6 +79,20 @@
             </q-item>
 
 
+            <q-item
+              :active="typeView === 'tablesCompany'"
+              clickable
+              v-ripple
+              @click="modifyDrawer('tablesCompany')"
+            >
+              <q-item-section avatar>
+                <q-icon name="table_bar" />
+              </q-item-section>
+
+              <q-item-section> Mesas </q-item-section>
+            </q-item>
+
+
 
           </q-list>
 
@@ -134,7 +148,8 @@
 
       <q-page-container>
         <q-page padding>
-          <TablesCompany v-if="typeView === 'bills'"></TablesCompany>
+          <TablesCompany v-if="typeView === 'tablesCompany'"></TablesCompany>
+          <BillsCompany v-if="typeView === 'bills'"></BillsCompany>
           <CategoryCrud v-if="typeView === 'crudCategory'"></CategoryCrud>
           <ItensCrud v-if="typeView === 'crudItens'"></ItensCrud>
           <PaymentArea v-if="typeView === 'paymentArea'"></PaymentArea>
@@ -146,6 +161,7 @@
 
 <script>
 import TablesCompany from "./TablesCompany.vue";
+import BillsCompany from "./BillsCompany.vue";
 import CategoryCrud from "./CategoryCrud";
 import ItensCrud from "./ItensCrud.vue";
 import PaymentArea from "./PaymentArea.vue";
@@ -159,10 +175,11 @@ export default {
     };
   },
   components: {
-    TablesCompany,
+    BillsCompany,
     CategoryCrud,
     ItensCrud,
-    PaymentArea
+    PaymentArea,
+    TablesCompany
   },
   data() {
     return {
