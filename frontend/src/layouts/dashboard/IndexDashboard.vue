@@ -6,17 +6,20 @@
       style="height: 100%"
       class="shadow-2 rounded-borders"
     >
-      <q-header elevated class="bg-cyan-8 ">
+      <q-header elevated class="bg-purple">
         <q-toolbar>
           <q-toolbar-title>{{ company.nomeFantasia }}</q-toolbar-title>
           <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
         </q-toolbar>
       </q-header>
 
-      <q-drawer v-model="drawer"
-        show-if-above 
-        :width="200" 
-        :breakpoint="400">
+      <q-drawer
+        v-model="drawer"
+        class="bg-purple"
+        show-if-above
+        :width="200"
+        :breakpoint="400"
+      >
         <q-scroll-area
           style="
             height: calc(100% - 150px);
@@ -64,7 +67,6 @@
               <q-item-section> Itens </q-item-section>
             </q-item>
 
-            
             <q-item
               :active="typeView === 'paymentArea'"
               clickable
@@ -78,7 +80,6 @@
               <q-item-section> Área de pagamento </q-item-section>
             </q-item>
 
-
             <q-item
               :active="typeView === 'tablesCompany'"
               clickable
@@ -91,14 +92,7 @@
 
               <q-item-section> Mesas </q-item-section>
             </q-item>
-
-
-
           </q-list>
-
-
-
-
 
           <q-list class="absolute-bottom">
             <q-item clickable v-ripple>
@@ -207,7 +201,6 @@ export default {
     this.getCompany();
   },
   methods: {
-
     logout() {
       localStorage.removeItem("token");
       this.$router.push("/");
