@@ -10,7 +10,7 @@
                   color="blue"
                   class="q-mx-sm"
                   text-color="black"
-                  :label="'Mesa ' + item.table"
+                  :label="'Mesa ' + item.mesa"
                 />
                 <q-badge
                   color="orange"
@@ -191,7 +191,7 @@ export default {
         .then((response) => {
           console.log(JSON.stringify(response.data));
           this.itens = response.data;
-          this.itens = this.itens.filter((item) => item.status == 1);
+          this.itens = this.itens.filter((item) => item.status === "1");
           this.itens = _.orderBy(this.itens, ["createdAt"], ["asc"]);
         })
         .catch((error) => {
