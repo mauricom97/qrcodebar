@@ -3,6 +3,8 @@ import QrCode from '../../db/models/QrCode'
 import { Request, Response } from 'express'
 import * as qr from 'qrcode'
 import jwt from 'jsonwebtoken'
+import { io } from "../../server";
+
 
 
 export const create = async (req: Request, res: Response) => {
@@ -10,6 +12,7 @@ export const create = async (req: Request, res: Response) => {
         const requestData: { num: number, description: string, company_uuid: string } = extractData(req)
         const tableCompany = await createTableCompany(req, requestData)
         const qrcode = await createQrCode(req, tableCompany)
+        io.emit('changeTablesCompany', { message: 'Dados atualizados' });
         return res.send({ num: tableCompany.num, description: tableCompany.description, qrcode: qrcode })
     } catch (error) {
         console.log(error)

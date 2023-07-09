@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import Bill from "../../db/models/Bills";
 import Item from "../../db/models/Item";
+import TableCompany from "../../db/models/TableCompany";
 
 export const get = async (req: Request, res: Response) => {
   try {
@@ -45,6 +46,7 @@ async function getBills(request: any) {
         'descriptionBill',
         'createdAt',
         'quantity',
+        'uuid_table',
       ],
     });
 
