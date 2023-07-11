@@ -1,4 +1,3 @@
-![](https://github.com/mauricom97/qrcodebar/blob/main/qr-code.png?raw=true)
 
 # BaristaPro
 
