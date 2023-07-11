@@ -1,5 +1,5 @@
 import Bills from '../../db/models/Bills';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { sequelize } from "../../db/config/database"
 import jwt from 'jsonwebtoken'
 
