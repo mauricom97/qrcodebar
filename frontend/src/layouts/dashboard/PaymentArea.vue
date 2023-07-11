@@ -11,10 +11,21 @@
           class="q-mt-md q-ml-md"
         />
       </div>
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3 q-mt-md q-ml-md" v-for="bill in bills" :key="bill">
-        <q-card class="my-card" flat bordered @click="modalDialog(bill[0].code)">
+      <div
+        class="col-12 col-sm-6 col-md-4 col-lg-3 q-mt-md q-ml-md"
+        v-for="bill in bills"
+        :key="bill"
+      >
+        <q-card
+          class="my-card"
+          flat
+          bordered
+          @click="modalDialog(bill[0].code)"
+        >
           <q-card-section>
-            <div class="text-h3" style="text-align: center">{{ bill[0].code }}</div>
+            <div class="text-h3" style="text-align: center">
+              {{ bill[0].code }}
+            </div>
           </q-card-section>
         </q-card>
       </div>
@@ -33,11 +44,20 @@
         <q-card-section>
           <q-scroll-area style="height: 200px; max-width: 300px">
             <q-list dense bordered padding class="rounded-borders q-mb-sm">
-              <q-item clickable v-ripple v-for="itemBill in itensInModelSelected" :key="itemBill.uuid">
+              <q-item
+                clickable
+                v-ripple
+                v-for="itemBill in itensInModelSelected"
+                :key="itemBill.uuid"
+              >
                 <q-item-section>{{ itemBill.name }}</q-item-section>
                 <q-item-section side>
                   <q-item-label>
-                    <q-badge color="orange" text-color="black" :label="itemBill.quantity + 'x'" />
+                    <q-badge
+                      color="orange"
+                      text-color="black"
+                      :label="itemBill.quantity + 'x'"
+                    />
                   </q-item-label>
                 </q-item-section>
                 <q-item-section side>
@@ -47,7 +67,9 @@
             </q-list>
           </q-scroll-area>
           <q-card-section>
-            <div class="text-h5" style="text-align: center">Total: {{ totalPriceBill.toFixed(2) }}</div>
+            <div class="text-h5" style="text-align: center">
+              Total: {{ totalPriceBill.toFixed(2) }}
+            </div>
           </q-card-section>
           <q-card-section>
             <q-btn
@@ -65,7 +87,10 @@
       <q-card>
         <q-card-section class="row items-center">
           <q-avatar icon="info" color="primary" text-color="white" />
-          <span class="q-ml-sm">Tem certeza que deseja confirmar o recebimento da comanda {{ billSelected }}</span>
+          <span class="q-ml-sm"
+            >Tem certeza que deseja confirmar o recebimento da comanda
+            {{ billSelected }}</span
+          >
         </q-card-section>
 
         <q-card-actions align="right">
@@ -80,16 +105,16 @@
 <script>
 import axios from "axios";
 import _ from "lodash";
-import { ref } from 'vue'
+import { ref } from "vue";
 export default {
-  setup () {
+  setup() {
     return {
       alert: ref(false),
       confirm: ref(false),
       prompt: ref(false),
 
-      address: ref('')
-    }
+      address: ref("")
+    };
   },
   data() {
     return {
@@ -97,7 +122,7 @@ export default {
       dialogPayBill: false,
       itensInModelSelected: null,
       totalPriceBill: 0,
-      billSelected: null,
+      billSelected: null
     };
   },
 
