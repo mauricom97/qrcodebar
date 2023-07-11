@@ -58,7 +58,11 @@
               <q-item>
                 <q-item-section avatar>
                   <q-avatar>
-                    <img alt="logo" src="../../../src/media/certo.png" draggable="false" />
+                    <img
+                      alt="logo"
+                      src="../../../src/media/certo.png"
+                      draggable="false"
+                    />
                   </q-avatar>
                 </q-item-section>
                 <q-item-section>Item entregue</q-item-section>
@@ -98,7 +102,7 @@
 import { ref, onBeforeUnmount } from "vue";
 import _ from "lodash";
 import axios from "axios";
-import io from 'socket.io-client/dist/socket.io';
+import io from "socket.io-client/dist/socket.io";
 
 export default {
   data() {
@@ -133,9 +137,9 @@ export default {
 
   mounted() {
     this.getBills();
-    this.socket.on('changeBills', (data) => {
+    this.socket.on("changeBills", (data) => {
       this.getBills();
-    })
+    });
   },
 
   methods: {
@@ -153,8 +157,7 @@ export default {
         maxBodyLength: Infinity,
         url: `${process.env.VUE_APP_BACKEND_URL}/bills/update?uuid=${uuidBill}`,
         headers: {
-          token:
-          localStorage.getItem("token"),
+          token: localStorage.getItem("token"),
           "Content-Type": "application/json"
         },
         data: data
@@ -172,7 +175,6 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-
     },
 
     getBills() {
@@ -181,8 +183,7 @@ export default {
         maxBodyLength: Infinity,
         url: `${process.env.VUE_APP_BACKEND_URL}/bills/table`,
         headers: {
-          token:
-            localStorage.getItem("token")
+          token: localStorage.getItem("token")
         }
       };
 
@@ -197,9 +198,9 @@ export default {
         .catch((error) => {
           console.log(error);
           if (error.response && error.response.status === 401) {
-              // Token inválido ou expirado, redireciona para a tela de login
-              this.$router.push('/login')
-            }
+            // Token inválido ou expirado, redireciona para a tela de login
+            this.$router.push("/login");
+          }
         });
     }
   }
