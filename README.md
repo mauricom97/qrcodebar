@@ -13,8 +13,8 @@ Já o responsável pelo estabelecimento pode ter um melhor controle de atendimen
 - **Relevância e importância do problema**
   - Hoje quando vamos em algum lugar queremos ter uma boa experiência em tudo, desde o atendimento inicial até a consumação do serviço, e muitos microempresários no ramo de restaurantes, bares e similares, podem ter a qualidade dos seus serviços muito boa, porem perdem na parte da experiência do cliente.
 - **Proposta de solução para o problema identificado**
-  - A proposta do QRCODEBAR é de melhorar a experiência dos clientes nos estabelecimentos e tirar a tensão na parte de atendimento e gerenciamento de pedidos, onde o cliente com seu próprio celular pode ter acesso a somente os itens que se encontram realmente disponíveis no estabelecimento.
-  - Do lado do estabelecimento, o QRCODEBAR tem como objetivo facilitar o controle de pedidos, controle de estoque e atendimento. 
+  - A proposta do BARISTAPRO é de melhorar a experiência dos clientes nos estabelecimentos e tirar a tensão na parte de atendimento e gerenciamento de pedidos, onde o cliente com seu próprio celular pode ter acesso a somente os itens que se encontram realmente disponíveis no estabelecimento.
+  - Do lado do estabelecimento, o BARISTAPRO tem como objetivo facilitar o controle de pedidos, controle de estoque e atendimento. 
 
 - **Sobre os diagramas**
 
