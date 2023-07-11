@@ -1,12 +1,9 @@
 <template>
-    <div class="q-ma-none q-pa-sm
-">
-      <div class="column" style="height: 150px">
-        <div class="col" color="primary">
-            asdasdsad
-        </div>
-      </div>
+  <div class="q-ma-none q-pa-sm">
+    <div class="column" style="height: 150px">
+      <div class="col" color="primary">asdasdsad</div>
     </div>
+  </div>
 </template>
 
 <script>
