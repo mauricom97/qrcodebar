@@ -22,6 +22,7 @@ function extractData(request: any) {
     const dataTable = jwt.verify(token, process.env.JWTKEY as string)
     const companyUuid = request.company.uuid
     return { companyUuid, dataTable }
+    
 }
 
 async function getMenu(dbName: string, uuid: string) {
