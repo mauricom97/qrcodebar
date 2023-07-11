@@ -60,7 +60,13 @@
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn flat label="Cadastrar mesa" @click="createTableCompany()" color="primary" v-close-popup />
+          <q-btn
+            flat
+            label="Cadastrar mesa"
+            @click="createTableCompany()"
+            color="primary"
+            v-close-popup
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -69,7 +75,7 @@
 
 <script>
 import axios from "axios";
-import io from 'socket.io-client/dist/socket.io';
+import io from "socket.io-client/dist/socket.io";
 
 export default {
   data() {
@@ -89,9 +95,9 @@ export default {
 
   mounted() {
     this.getTablesCompanies();
-    this.socket.on('changeTablesCompany', (data) => {
+    this.socket.on("changeTablesCompany", (data) => {
       this.getTablesCompanies();
-    })
+    });
   },
   methods: {
     getTablesCompanies() {
@@ -115,7 +121,7 @@ export default {
         });
     },
     createTableCompany() {
-        let config = {
+      let config = {
         method: "post",
         maxBodyLength: Infinity,
         url: `${process.env.VUE_APP_BACKEND_URL}/tableCompany/create`,
